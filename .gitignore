@@ -1,0 +1,36 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+.DS_Store
+/node_modules
+/build
+/dist
+/bin
+/minkowski
+/deepnest-*win*x64
+git_token.rtf
+.idea
+*.zip
+.python-version
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/deepnest-v*
+/out
+/.env
+/.env.local
+/output.log
+/_assets/embedded.*
+
+# Auto Claude data directory
+.auto-claude/
+
+# Auto Claude generated files
+.auto-claude-security.json
+.auto-claude-status
+.claude_settings.json
+.worktrees/
+.security-key
+logs/security/

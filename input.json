@@ -1,0 +1,29 @@
+{
+  "settings": {
+    "mergeLines": true,
+    "timeRatio": 0.5,
+    "populationSize": 10,
+    "mutationRate": 10,
+    "rotations": 4,
+    "spacing": 10,
+    "placementType": "gravity",
+    "units": "mm"
+  },
+  "sheets": [
+    { "width": 300, "height": 300 }
+  ],
+  "parts": [
+    {
+      "path": "C:\\Users\\Inguss\\My Drive\\dev\\deepnest-main\\tests\\assets\\henny-penny.svg",
+      "quantity": 2
+    },
+    {
+      "path": "C:\\Users\\Inguss\\My Drive\\dev\\deepnest-main\\tests\\assets\\mrs-saint-delafield.svg",
+      "quantity": 2
+    }
+  ],
+  "autoStart": true,
+  "output": {
+    "resultJson": "result.json"
+  }
+}

@@ -1,0 +1,1099 @@
+{
+  "success": true,
+  "generatedAt": "2026-06-09T10:33:58.839Z",
+  "inputPath": "C:\\Users\\Inguss\\My Drive\\dev\\deepnest-main\\input.json",
+  "fitness": 726672.9496086347,
+  "area": 261727.38661203205,
+  "totalarea": 723169.44636032,
+  "mergedLength": 0,
+  "utilisation": 36.19170969256161,
+  "index": 4,
+  "placements": [
+    {
+      "sheet": 0,
+      "sheetId": "0000-0000",
+      "parts": [
+        {
+          "id": 12,
+          "source": 7,
+          "filename": "henny-penny.svg",
+          "x": -281.37558995399036,
+          "y": -34.319997466029854,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 13,
+          "source": 7,
+          "filename": "henny-penny.svg",
+          "x": 362.31965119999995,
+          "y": 251.60665529999994,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 50,
+          "source": 26,
+          "filename": "henny-penny.svg",
+          "x": 157.75327429999993,
+          "y": -902.8338017,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 51,
+          "source": 26,
+          "filename": "henny-penny.svg",
+          "x": 154.97549039999993,
+          "y": -824.8204516999999,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 10,
+          "source": 6,
+          "filename": "henny-penny.svg",
+          "x": 139.12073099999998,
+          "y": 128.32441619999997,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 11,
+          "source": 6,
+          "filename": "henny-penny.svg",
+          "x": 131.40691759999999,
+          "y": 191.7174817,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 2,
+          "source": 2,
+          "filename": "henny-penny.svg",
+          "x": 38.87246670000001,
+          "y": 619.5429320000001,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 3,
+          "source": 2,
+          "filename": "henny-penny.svg",
+          "x": 21.207210500000002,
+          "y": 93.48529629999999,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 14,
+          "source": 8,
+          "filename": "henny-penny.svg",
+          "x": 128.02239949999998,
+          "y": 234.27201589999999,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 15,
+          "source": 8,
+          "filename": "henny-penny.svg",
+          "x": 18.005280200000065,
+          "y": 1018.4194736,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 6,
+          "source": 4,
+          "filename": "henny-penny.svg",
+          "x": -146.7357595,
+          "y": 679.4587027,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 7,
+          "source": 4,
+          "filename": "henny-penny.svg",
+          "x": -77.15352239999999,
+          "y": 688.8229656,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 32,
+          "source": 17,
+          "filename": "henny-penny.svg",
+          "x": -4.112985199999869,
+          "y": 1497.7910167,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 33,
+          "source": 17,
+          "filename": "henny-penny.svg",
+          "x": -544.8689254,
+          "y": -37.951102899999995,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 0,
+          "source": 1,
+          "filename": "henny-penny.svg",
+          "x": 76.6172694,
+          "y": 363.05526100000003,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 1,
+          "source": 1,
+          "filename": "henny-penny.svg",
+          "x": 180.5906401,
+          "y": 310.4924317,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 34,
+          "source": 18,
+          "filename": "henny-penny.svg",
+          "x": 910.4483915000001,
+          "y": 816.2058672999999,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 35,
+          "source": 18,
+          "filename": "henny-penny.svg",
+          "x": -565.3163495,
+          "y": 442.6387229,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 28,
+          "source": 15,
+          "filename": "henny-penny.svg",
+          "x": -406.342938,
+          "y": 561.917464,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 38,
+          "source": 20,
+          "filename": "henny-penny.svg",
+          "x": -651.4506492,
+          "y": 80.43949710000001,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 29,
+          "source": 15,
+          "filename": "henny-penny.svg",
+          "x": 117.4287030000001,
+          "y": 1019.2729691,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 39,
+          "source": 20,
+          "filename": "henny-penny.svg",
+          "x": 261.39166939999996,
+          "y": -5.46501319999993,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 22,
+          "source": 12,
+          "filename": "henny-penny.svg",
+          "x": 640.6801328,
+          "y": 350.85995899999995,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 42,
+          "source": 22,
+          "filename": "henny-penny.svg",
+          "x": 1129.7164048,
+          "y": 133.87269989999987,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 43,
+          "source": 22,
+          "filename": "henny-penny.svg",
+          "x": 1145.0861037,
+          "y": 439.9695687999999,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 23,
+          "source": 12,
+          "filename": "henny-penny.svg",
+          "x": 342.5977357,
+          "y": 281.03386750000004,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 46,
+          "source": 24,
+          "filename": "henny-penny.svg",
+          "x": -794.7839135999999,
+          "y": 505.14734730000004,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 47,
+          "source": 24,
+          "filename": "henny-penny.svg",
+          "x": 309.79184789999994,
+          "y": -871.5366640999999,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 26,
+          "source": 14,
+          "filename": "henny-penny.svg",
+          "x": -278.5740625,
+          "y": 422.4899788,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 27,
+          "source": 14,
+          "filename": "henny-penny.svg",
+          "x": -269.1597941,
+          "y": 708.5477295999999,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 64,
+          "source": 33,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 114.85471929999997,
+          "y": 184.1050779,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 65,
+          "source": 33,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 359.60888359999996,
+          "y": 509.5681869,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 86,
+          "source": 44,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 661.3893185000001,
+          "y": 515.65613,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 87,
+          "source": 44,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 181.36960570000008,
+          "y": 520.4235795000001,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 41,
+          "source": 21,
+          "filename": "henny-penny.svg",
+          "x": 1160.0248984,
+          "y": 387.5033625999999,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 40,
+          "source": 21,
+          "filename": "henny-penny.svg",
+          "x": 346.57449949999994,
+          "y": -831.5164707,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 48,
+          "source": 25,
+          "filename": "henny-penny.svg",
+          "x": 1401.4233577,
+          "y": 624.0438503999999,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 49,
+          "source": 25,
+          "filename": "henny-penny.svg",
+          "x": 377.0893014999999,
+          "y": -622.4135964,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 24,
+          "source": 13,
+          "filename": "henny-penny.svg",
+          "x": 267.20484610000005,
+          "y": 1096.924076,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 52,
+          "source": 27,
+          "filename": "henny-penny.svg",
+          "x": -887.4734175,
+          "y": 724.7358653000001,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 25,
+          "source": 13,
+          "filename": "henny-penny.svg",
+          "x": 379.36417259999996,
+          "y": -279.8807717,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 53,
+          "source": 27,
+          "filename": "henny-penny.svg",
+          "x": 1529.313625,
+          "y": 797.7992559999998,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 36,
+          "source": 19,
+          "filename": "henny-penny.svg",
+          "x": 257.64458940000014,
+          "y": 883.2531212,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 37,
+          "source": 19,
+          "filename": "henny-penny.svg",
+          "x": 403.79894029999997,
+          "y": -545.4246628999999,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 4,
+          "source": 3,
+          "filename": "henny-penny.svg",
+          "x": 275.66441570000006,
+          "y": 432.9741055,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 8,
+          "source": 5,
+          "filename": "henny-penny.svg",
+          "x": 576.1043010999999,
+          "y": 456.40487809999996,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 9,
+          "source": 5,
+          "filename": "henny-penny.svg",
+          "x": 433.0256674,
+          "y": -208.12538919999997,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 30,
+          "source": 16,
+          "filename": "henny-penny.svg",
+          "x": 996.7593118,
+          "y": 620.2853050999998,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 5,
+          "source": 3,
+          "filename": "henny-penny.svg",
+          "x": 306.28125480000006,
+          "y": 579.6020129,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 31,
+          "source": 16,
+          "filename": "henny-penny.svg",
+          "x": 1008.0459023,
+          "y": 846.2875268999999,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 88,
+          "source": 45,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 462.57592459999995,
+          "y": 250.07101559999995,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 89,
+          "source": 45,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 279.6989809000001,
+          "y": 938.2335327000001,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 44,
+          "source": 23,
+          "filename": "henny-penny.svg",
+          "x": 316.7006690000002,
+          "y": 1108.8109039,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 45,
+          "source": 23,
+          "filename": "henny-penny.svg",
+          "x": -596.7969925,
+          "y": 279.7209399,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 94,
+          "source": 48,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 473.4527796,
+          "y": -279.14065480000005,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 95,
+          "source": 48,
+          "filename": "mrs-saint-delafield.svg",
+          "x": -107.82088330000005,
+          "y": 525.0777693,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 104,
+          "source": 53,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 514.4882361,
+          "y": -553.9915047999999,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 105,
+          "source": 53,
+          "filename": "mrs-saint-delafield.svg",
+          "x": -228.38283389999998,
+          "y": 697.5310678,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 66,
+          "source": 34,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 586.3107156,
+          "y": 273.5336948,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 67,
+          "source": 34,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 249.2314243,
+          "y": 256.2568847,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 107,
+          "source": 54,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 1089.7063016000002,
+          "y": 555.6229606999999,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 106,
+          "source": 54,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 313.78888370000016,
+          "y": 1348.9661435,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 60,
+          "source": 31,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 363.82275130000005,
+          "y": 624.2746085,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 80,
+          "source": 41,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 746.7747595000001,
+          "y": 716.0589096,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 61,
+          "source": 31,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 336.5996755,
+          "y": 300.25928369999997,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 81,
+          "source": 41,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 335.41030190000004,
+          "y": 1043.5265512,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 78,
+          "source": 40,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 150.72012969999997,
+          "y": 220.74949819999998,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 79,
+          "source": 40,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 165.84120809999996,
+          "y": 114.26414929999999,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 68,
+          "source": 35,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 355.17233200000004,
+          "y": 275.19740709999996,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 69,
+          "source": 35,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 385.15103300000004,
+          "y": 885.6607759999999,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 18,
+          "source": 10,
+          "filename": "henny-penny.svg",
+          "x": 400.4743870000001,
+          "y": 875.2761419,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 19,
+          "source": 10,
+          "filename": "henny-penny.svg",
+          "x": 404.0463735000001,
+          "y": 1224.703473,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 76,
+          "source": 39,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 245.18181100000004,
+          "y": 103.119695,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 56,
+          "source": 29,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 424.9891082,
+          "y": 20.516663,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 57,
+          "source": 29,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 402.6265419,
+          "y": 628.1893911,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 77,
+          "source": 39,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 599.6549117,
+          "y": 525.101273,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 82,
+          "source": 42,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 552.9851782999999,
+          "y": -318.8600058,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 83,
+          "source": 42,
+          "filename": "mrs-saint-delafield.svg",
+          "x": -299.8904046,
+          "y": 426.110158,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 54,
+          "source": 28,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 388.04709090000006,
+          "y": 330.1441377,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 55,
+          "source": 28,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 451.6557137,
+          "y": 338.64423610000006,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 84,
+          "source": 43,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 867.9516509,
+          "y": 452.9737202999999,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 85,
+          "source": 43,
+          "filename": "mrs-saint-delafield.svg",
+          "x": -290.4211462,
+          "y": -46.6133525,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 100,
+          "source": 51,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 762.1090781,
+          "y": 476.13175689999997,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 101,
+          "source": 51,
+          "filename": "mrs-saint-delafield.svg",
+          "x": -68.24914489999989,
+          "y": 1413.2760661,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 96,
+          "source": 49,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 333.6035734,
+          "y": 152.2706201000001,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 97,
+          "source": 49,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 566.7083858,
+          "y": -21.695411599999943,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 58,
+          "source": 30,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 162.3922909,
+          "y": 165.13782650000002,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 59,
+          "source": 30,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 44.913271800000004,
+          "y": 353.49806040000004,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 102,
+          "source": 52,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 580.3543384,
+          "y": 25.635929199999964,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 103,
+          "source": 52,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 401.56302240000014,
+          "y": 895.8924076000001,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 62,
+          "source": 32,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 251.09869049999998,
+          "y": -39.861393500000005,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 92,
+          "source": 47,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 8.351296899999966,
+          "y": 37.544231100000005,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 63,
+          "source": 32,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 87.88263309999999,
+          "y": 449.7635272,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 93,
+          "source": 47,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 173.14754210000007,
+          "y": 1314.8129528,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 99,
+          "source": 50,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 918.9649645,
+          "y": 919.8349443,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 98,
+          "source": 50,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 587.3195195,
+          "y": -531.6728259,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 90,
+          "source": 46,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 768.9211153,
+          "y": 511.11891719999994,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 91,
+          "source": 46,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 1.9071438000000853,
+          "y": 1191.4901777999999,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 72,
+          "source": 37,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 590.7932631,
+          "y": 490.35031449999997,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 73,
+          "source": 37,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 256.6468163,
+          "y": 77.24005800000002,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 16,
+          "source": 9,
+          "filename": "henny-penny.svg",
+          "x": -396.0491655,
+          "y": 681.431017,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 17,
+          "source": 9,
+          "filename": "henny-penny.svg",
+          "x": 429.4634055,
+          "y": 307.6570973,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 20,
+          "source": 11,
+          "filename": "henny-penny.svg",
+          "x": 69.09823609999998,
+          "y": -79.41646299999996,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 74,
+          "source": 38,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 81.97160679999999,
+          "y": -144.2801061,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 21,
+          "source": 11,
+          "filename": "henny-penny.svg",
+          "x": 488.1682977,
+          "y": 333.58898479999993,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 75,
+          "source": 38,
+          "filename": "mrs-saint-delafield.svg",
+          "x": -64.05025239999995,
+          "y": 991.6239501,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 70,
+          "source": 36,
+          "filename": "mrs-saint-delafield.svg",
+          "x": 82.39563219999998,
+          "y": -231.80889330000002,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 71,
+          "source": 36,
+          "filename": "mrs-saint-delafield.svg",
+          "x": -231.74323990000002,
+          "y": 189.6744734,
+          "rotation": 0,
+          "mergedLength": 0,
+          "mergedSegments": []
+        }
+      ]
+    }
+  ]
+}
