@@ -14,11 +14,11 @@
   ],
   "parts": [
     {
-      "path": "C:\\Users\\Inguss\\My Drive\\dev\\deepnest-main\\tests\\assets\\henny-penny.svg",
+      "path": "tests/assets/henny-penny.svg",
       "quantity": 2
     },
     {
-      "path": "C:\\Users\\Inguss\\My Drive\\dev\\deepnest-main\\tests\\assets\\mrs-saint-delafield.svg",
+      "path": "tests/assets/mrs-saint-delafield.svg",
       "quantity": 2
     }
   ],

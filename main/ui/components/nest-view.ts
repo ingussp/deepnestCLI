@@ -350,6 +350,14 @@ export class NestViewService {
       height: "100%",
       viewBox: `0 0 ${svgWidth} ${svgHeight}`,
     });
+	
+	const syncFn = (window as unknown as {
+		triggerCliResultSync?: () => void;
+	  }).triggerCliResultSync;
+
+	  if (typeof syncFn === "function") {
+		syncFn();
+	  }
   }
 
   /**

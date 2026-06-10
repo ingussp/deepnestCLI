@@ -560,8 +560,6 @@ async function bootstrapCliJob(): Promise<void> {
 		outputPath,
 	  };
 
-	  startCliResultAutoSync();
-
 	  void syncSelectedNestToResultJson(cliInput.path, outputPath).catch((error) => {
 		console.error("[cli-output][renderer] Initial result sync failed:", error);
 	  });
@@ -588,20 +586,6 @@ function triggerCliResultSync(): void {
   ).catch((error) => {
     console.error("[cli-output][renderer] Result sync failed:", error);
   });
-}
-
-let cliResultSyncIntervalStarted = false;
-
-function startCliResultAutoSync(): void {
-  if (cliResultSyncIntervalStarted) {
-    return;
-  }
-
-  cliResultSyncIntervalStarted = true;
-
-  window.setInterval(() => {
-    triggerCliResultSync();
-  }, 1000);
 }
 
 /**
