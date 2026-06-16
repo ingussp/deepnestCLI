@@ -19,6 +19,7 @@ node_modules/
 /playwright/.cache/
 /deepnest-v*
 /out
+/.vscode
 /.env
 /.env.local
 /output.log
@@ -34,3 +35,4 @@ node_modules/
 .worktrees/
 .security-key
 logs/security/
+debug.txt

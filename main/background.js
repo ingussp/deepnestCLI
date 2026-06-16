@@ -696,7 +696,10 @@ function hasMaterialOutsideSheet(part, sheet, config) {
     return true;
   }
 
-  if (hasNonZeroClipperArea(outside)) {
+  var outsideAreaTolerance = 5000;
+  var outsideHasArea = hasNonZeroClipperArea(outside, outsideAreaTolerance);
+
+  if (outsideHasArea) {
     return true;
   }
 
@@ -711,9 +714,11 @@ function hasMaterialOutsideSheet(part, sheet, config) {
   return false;
 }
 
-function hasNonZeroClipperArea(paths) {
+function hasNonZeroClipperArea(paths, minArea) {
+  var threshold = typeof minArea === 'number' ? minArea : 0;
+
   for (let i = 0; i < paths.length; i++) {
-    if (Math.abs(ClipperLib.Clipper.Area(paths[i])) > 0) {
+    if (Math.abs(ClipperLib.Clipper.Area(paths[i])) > threshold) {
       return true;
     }
   }
@@ -1277,6 +1282,7 @@ function placeParts(sheets, parts, config, nestindex) {
       }
       // part unplaceable, skip
       if (!sheetNfp || sheetNfp.length == 0) {
+		  
         continue;
       }
 
@@ -1294,6 +1300,14 @@ function placeParts(sheets, parts, config, nestindex) {
               source: part.source,
               filename: part.filename
             };
+			
+			var shiftedFirstPart = shiftPolygon(part, firstPosition);
+			  var outsideSheet = hasMaterialOutsideSheet(shiftedFirstPart, sheet, config);
+
+			  if (outsideSheet) {
+				continue;
+			  }
+			
             if (hasMaterialOutsideSheet(shiftPolygon(part, firstPosition), sheet, config)) {
               continue;
             }
@@ -1311,7 +1325,6 @@ function placeParts(sheets, parts, config, nestindex) {
           }
         }
         if (position === null) {
-          // console.log(sheetNfp);
           continue;
         }
         placements.push(position);
@@ -1726,8 +1739,8 @@ function placeParts(sheets, parts, config, nestindex) {
           }
         }
       }
-
-      // Continue with best position if available
+	  
+	  // Continue with best position if available
       if (position) {
         placed.push(part);
         placements.push(position);

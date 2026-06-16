@@ -309,6 +309,10 @@ async function runNotificationCheck() {
   }
 }
 
+const debugLogPath = path.join(process.cwd(), "debug.txt");
+ipcMain.on("debug-log", (event, message) => {
+  fs.appendFileSync(debugLogPath, message + "\n", "utf8");
+});
 
 let winCount = 0;
 

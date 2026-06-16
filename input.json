@@ -4,22 +4,24 @@
     "timeRatio": 0.5,
     "populationSize": 10,
     "mutationRate": 10,
-    "rotations": 4,
+    "rotations": 1,
     "spacing": 10,
     "placementType": "gravity",
     "units": "mm"
   },
-  "sheets": [
-    { "width": 300, "height": 300 }
-  ],
+  "sheets": [{ "width": 1000, "height": 1000 }],
   "parts": [
     {
+      "path": "tests/assets/zvaigzneSVG.svg",
+      "quantity": 100
+    },
+    {
       "path": "tests/assets/henny-penny.svg",
-      "quantity": 2
+      "quantity": 5
     },
     {
       "path": "tests/assets/mrs-saint-delafield.svg",
-      "quantity": 2
+      "quantity": 5
     }
   ],
   "autoStart": true,
