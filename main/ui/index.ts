@@ -128,10 +128,25 @@ interface CliPartInput {
   quantity?: number;
 }
 
-interface CliSheetInput {
+interface CliPointInput {
+  x: number;
+  y: number;
+}
+
+interface CliRectSheetInput {
+  type?: "rect";
   width: number;
   height: number;
+  quantity?: number;
 }
+
+interface CliPolygonSheetInput {
+  type: "polygon";
+  points: CliPointInput[];
+  quantity?: number;
+}
+
+type CliSheetInput = CliRectSheetInput | CliPolygonSheetInput;
 
 interface CliSettingsInput {
   mergeLines?: boolean;
@@ -195,14 +210,8 @@ function isCliJobInput(value: unknown): value is CliJobInput {
       ));
 
   const validSheets =
-    maybeSheets === undefined ||
-    (Array.isArray(maybeSheets) &&
-      maybeSheets.every(
-        (sheet) =>
-          isObject(sheet) &&
-          typeof sheet.width === "number" &&
-          typeof sheet.height === "number"
-      ));
+  maybeSheets === undefined ||
+  (Array.isArray(maybeSheets) && maybeSheets.every(isCliSheetInput));
 
   const validSettings =
     maybeSettings === undefined || isObject(maybeSettings);
@@ -217,6 +226,51 @@ function isCliJobInput(value: unknown): value is CliJobInput {
         typeof maybeOutput.resultJson === "string"));
 
   return validParts && validSheets && validSettings && validAutoStart && validOutput;
+}
+
+function isCliPointInput(value: unknown): value is CliPointInput {
+  return (
+    isObject(value) &&
+    typeof value.x === "number" &&
+    Number.isFinite(value.x) &&
+    typeof value.y === "number" &&
+    Number.isFinite(value.y)
+  );
+}
+
+function isCliRectSheetInput(value: unknown): value is CliRectSheetInput {
+  return (
+    isObject(value) &&
+    (value.type === undefined || value.type === "rect") &&
+    typeof value.width === "number" &&
+    Number.isFinite(value.width) &&
+    value.width > 0 &&
+    typeof value.height === "number" &&
+    Number.isFinite(value.height) &&
+    value.height > 0 &&
+    (value.quantity === undefined ||
+      (typeof value.quantity === "number" &&
+        Number.isInteger(value.quantity) &&
+        value.quantity > 0))
+  );
+}
+
+function isCliPolygonSheetInput(value: unknown): value is CliPolygonSheetInput {
+  return (
+    isObject(value) &&
+    value.type === "polygon" &&
+    Array.isArray(value.points) &&
+    value.points.length >= 3 &&
+    value.points.every(isCliPointInput) &&
+    (value.quantity === undefined ||
+      (typeof value.quantity === "number" &&
+        Number.isInteger(value.quantity) &&
+        value.quantity > 0))
+  );
+}
+
+function isCliSheetInput(value: unknown): value is CliSheetInput {
+  return isCliRectSheetInput(value) || isCliPolygonSheetInput(value);
 }
 
 async function getCliInput(): Promise<CliInputEnvelope | null> {
@@ -285,6 +339,57 @@ function applyCliSettings(settings: CliSettingsInput): void {
   console.log("[cli-input][renderer] applyCliSettings() done");
 }
 
+function getCliSheetConversionFactor(): number {
+  const units = configService.getSync("units");
+  const scale = Number(configService.getSync("scale")) || 72;
+
+  if (units === "mm") {
+    return scale / 25.4;
+  }
+
+  return scale;
+}
+
+function createPolygonSheetSvg(points: CliPointInput[]): string {
+  const conversion = getCliSheetConversionFactor();
+
+  const svgPoints = points
+    .map((point) => `${point.x * conversion},${point.y * conversion}`)
+    .join(" ");
+
+  const svgString =
+    `<svg xmlns="http://www.w3.org/2000/svg">` +
+    `<polygon points="${svgPoints}" class="sheet" />` +
+    `</svg>`;
+
+  return svgString;
+}
+
+function addCliPolygonSheet(points: CliPointInput[]): boolean {
+  const deepNest = getDeepNest();
+
+  if (!deepNest || !Array.isArray(deepNest.parts)) {
+    console.warn("[cli-input][renderer] deepNest not available for polygon sheet");
+    return false;
+  }
+
+  if (!Array.isArray(points) || points.length < 3) {
+    console.warn("[cli-input][renderer] Invalid polygon sheet points");
+    return false;
+  }
+
+  const svgString = createPolygonSheetSvg(points);
+  const parts = deepNest.importsvg(null, null, svgString);
+
+  if (parts.length > 0) {
+    const sheet = parts[0];
+    sheet.sheet = true;
+    return true;
+  }
+
+  return false;
+}
+
 function loadCliSheets(sheets: CliSheetInput[]): void {
   console.log("[cli-input][renderer] loadCliSheets() start", sheets);
 
@@ -295,13 +400,40 @@ function loadCliSheets(sheets: CliSheetInput[]): void {
 
   for (const sheet of sheets) {
     console.log("[cli-input][renderer] Adding sheet:", sheet);
-    if (sheet.width > 0 && sheet.height > 0) {
-      sheetDialogService.addSheet(sheet.width, sheet.height);
+
+    const quantity =
+      typeof sheet.quantity === "number" && sheet.quantity > 0
+        ? Math.floor(sheet.quantity)
+        : 1;
+
+    if (isCliPolygonSheetInput(sheet)) {
+      for (let i = 0; i < quantity; i++) {
+        const ok = addCliPolygonSheet(sheet.points);
+        if (!ok) {
+          console.warn("[cli-input][renderer] Failed to add polygon sheet", sheet);
+        }
+      }
+      continue;
     }
+
+    if (isCliRectSheetInput(sheet)) {
+      for (let i = 0; i < quantity; i++) {
+        if (sheet.width > 0 && sheet.height > 0) {
+          sheetDialogService.addSheet(sheet.width, sheet.height);
+        } else {
+          console.warn("[cli-input][renderer] Invalid rectangular sheet", sheet);
+        }
+      }
+      continue;
+    }
+
+    console.warn("[cli-input][renderer] Unsupported sheet definition", sheet);
   }
 
   if (partsViewService) {
     partsViewService.update();
+    partsViewService.attachSort?.();
+    partsViewService.applyZoom?.();
   }
 
   resize();
