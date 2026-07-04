@@ -142,7 +142,8 @@ interface CliRectSheetInput {
 
 interface CliPolygonSheetInput {
   type: "polygon";
-  points: CliPointInput[];
+  outer: CliPointInput[];
+  holes?: CliPointInput[][];
   quantity?: number;
 }
 
@@ -210,8 +211,8 @@ function isCliJobInput(value: unknown): value is CliJobInput {
       ));
 
   const validSheets =
-  maybeSheets === undefined ||
-  (Array.isArray(maybeSheets) && maybeSheets.every(isCliSheetInput));
+	  maybeSheets === undefined ||
+	  (Array.isArray(maybeSheets) && maybeSheets.every(isCliSheetInput));
 
   const validSettings =
     maybeSettings === undefined || isObject(maybeSettings);
@@ -238,6 +239,14 @@ function isCliPointInput(value: unknown): value is CliPointInput {
   );
 }
 
+function isPointArray(value: unknown): value is CliPointInput[] {
+  return Array.isArray(value) && value.length >= 3 && value.every(isCliPointInput);
+}
+
+function isHoleArray(value: unknown): value is CliPointInput[][] {
+  return Array.isArray(value) && value.every(isPointArray);
+}
+
 function isCliRectSheetInput(value: unknown): value is CliRectSheetInput {
   return (
     isObject(value) &&
@@ -259,9 +268,8 @@ function isCliPolygonSheetInput(value: unknown): value is CliPolygonSheetInput {
   return (
     isObject(value) &&
     value.type === "polygon" &&
-    Array.isArray(value.points) &&
-    value.points.length >= 3 &&
-    value.points.every(isCliPointInput) &&
+    isPointArray(value.outer) &&
+    (value.holes === undefined || isHoleArray(value.holes)) &&
     (value.quantity === undefined ||
       (typeof value.quantity === "number" &&
         Number.isInteger(value.quantity) &&
@@ -350,22 +358,75 @@ function getCliSheetConversionFactor(): number {
   return scale;
 }
 
-function createPolygonSheetSvg(points: CliPointInput[]): string {
-  const conversion = getCliSheetConversionFactor();
-
-  const svgPoints = points
-    .map((point) => `${point.x * conversion},${point.y * conversion}`)
-    .join(" ");
-
-  const svgString =
-    `<svg xmlns="http://www.w3.org/2000/svg">` +
-    `<polygon points="${svgPoints}" class="sheet" />` +
-    `</svg>`;
-
-  return svgString;
+function reversePoints(points: CliPointInput[]): CliPointInput[] {
+  return [...points].reverse();
 }
 
-function addCliPolygonSheet(points: CliPointInput[]): boolean {
+function polygonSignedArea(points: CliPointInput[]): number {
+  let area = 0;
+
+  for (let i = 0; i < points.length; i++) {
+    const p1 = points[i];
+    const p2 = points[(i + 1) % points.length];
+    area += p1.x * p2.y - p2.x * p1.y;
+  }
+
+  return area / 2;
+}
+
+function ensureClockwise(points: CliPointInput[]): CliPointInput[] {
+  return polygonSignedArea(points) < 0 ? [...points] : reversePoints(points);
+}
+
+function ensureCounterClockwise(points: CliPointInput[]): CliPointInput[] {
+  return polygonSignedArea(points) > 0 ? [...points] : reversePoints(points);
+}
+
+function polygonPointsToPath(points: CliPointInput[], conversion: number): string {
+  if (!points.length) {
+    return "";
+  }
+
+  const first = points[0];
+  let d = `M ${first.x * conversion} ${first.y * conversion}`;
+
+  for (let i = 1; i < points.length; i++) {
+    const point = points[i];
+    d += ` L ${point.x * conversion} ${point.y * conversion}`;
+  }
+
+  d += " Z";
+  return d;
+}
+
+function createPolygonSheetSvg(
+  outer: CliPointInput[],
+  holes: CliPointInput[][] = []
+): string {
+  const conversion = getCliSheetConversionFactor();
+
+  // Outer contour one direction, holes opposite direction
+  const normalizedOuter = ensureClockwise(outer);
+  const normalizedHoles = holes.map((hole) => ensureCounterClockwise(hole));
+
+  const outerPath = polygonPointsToPath(normalizedOuter, conversion);
+  const holesPath = normalizedHoles
+    .map((hole) => polygonPointsToPath(hole, conversion))
+    .join(" ");
+
+  const d = `${outerPath} ${holesPath}`.trim();
+
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg">`,
+	`<path d="${d}" class="sheet" fill="#000000" stroke="#000000" fill-rule="evenodd" />`,
+    `</svg>`,
+  ].join("");
+}
+
+function addCliPolygonSheet(
+  outer: CliPointInput[],
+  holes: CliPointInput[][] = []
+): boolean {
   const deepNest = getDeepNest();
 
   if (!deepNest || !Array.isArray(deepNest.parts)) {
@@ -373,12 +434,17 @@ function addCliPolygonSheet(points: CliPointInput[]): boolean {
     return false;
   }
 
-  if (!Array.isArray(points) || points.length < 3) {
-    console.warn("[cli-input][renderer] Invalid polygon sheet points");
+  if (!Array.isArray(outer) || outer.length < 3) {
+    console.warn("[cli-input][renderer] Invalid polygon sheet outer contour");
     return false;
   }
 
-  const svgString = createPolygonSheetSvg(points);
+  if (!Array.isArray(holes)) {
+    console.warn("[cli-input][renderer] Invalid polygon sheet holes array");
+    return false;
+  }
+
+  const svgString = createPolygonSheetSvg(outer, holes);
   const parts = deepNest.importsvg(null, null, svgString);
 
   if (parts.length > 0) {
@@ -407,14 +473,14 @@ function loadCliSheets(sheets: CliSheetInput[]): void {
         : 1;
 
     if (isCliPolygonSheetInput(sheet)) {
-      for (let i = 0; i < quantity; i++) {
-        const ok = addCliPolygonSheet(sheet.points);
-        if (!ok) {
-          console.warn("[cli-input][renderer] Failed to add polygon sheet", sheet);
-        }
-      }
-      continue;
-    }
+	  for (let i = 0; i < quantity; i++) {
+		const ok = addCliPolygonSheet(sheet.outer, sheet.holes ?? []);
+		if (!ok) {
+		  console.warn("[cli-input][renderer] Failed to add polygon sheet", sheet);
+		}
+	  }
+	  continue;
+	}
 
     if (isCliRectSheetInput(sheet)) {
       for (let i = 0; i < quantity; i++) {
