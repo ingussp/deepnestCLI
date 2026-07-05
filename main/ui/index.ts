@@ -150,21 +150,35 @@ interface CliPolygonSheetInput {
 type CliSheetInput = CliRectSheetInput | CliPolygonSheetInput;
 
 interface CliSettingsInput {
-  mergeLines?: boolean;
-  timeRatio?: number;
-  populationSize?: number;
-  mutationRate?: number;
-  rotations?: number;
+  // Nesting configuration
+  units?: "inch" | "mm";
   spacing?: number;
-  placementType?: string;
-  units?: "in" | "mm";
   curveTolerance?: number;
+  rotations?: number;
+  placementType?: "gravity" | "box" | "convexhull";
   simplify?: boolean;
   threads?: number;
+
+  // Import / Export
+  useSvgPreProcessor?: boolean;
   scale?: number;
   endpointTolerance?: number;
   dxfImportScale?: number;
   dxfExportScale?: number;
+  exportWithSheetBoundboarders?: boolean;
+  exportWithSheetsSpace?: boolean;
+  exportWithSheetsSpaceValue?: number;
+
+  // Laser options
+  mergeLines?: boolean;
+  timeRatio?: number;
+
+  // Meta-heuristic fine tuning
+  populationSize?: number;
+  mutationRate?: number;
+
+  // Other settings
+  useQuantityFromFileName?: boolean;
 }
 
 interface CliOutputInput {
@@ -299,6 +313,49 @@ async function getCliInput(): Promise<CliInputEnvelope | null> {
   }
 }
 
+function normalizeCliSettingsForInternalConfig(
+  settings: CliSettingsInput
+): Partial<CliSettingsInput> {
+  const normalized: Partial<CliSettingsInput> = { ...settings };
+
+  const units = settings.units ?? configService.getSync("units") ?? "inch";
+
+  // GUI shows scale as units per current unit.
+  // Internal config stores scale as units per inch.
+  if (typeof settings.scale === "number") {
+    normalized.scale = units === "mm" ? settings.scale * 25.4 : settings.scale;
+  }
+
+  // GUI shows these values in the currently selected units.
+  // Internal config stores them in SVG units using current conversion.
+  const scaleForConversion =
+    typeof normalized.scale === "number"
+      ? normalized.scale
+      : Number(configService.getSync("scale")) || 72;
+
+  const conversion = units === "mm" ? scaleForConversion / 25.4 : scaleForConversion;
+
+  const convertDistanceSetting = (
+    key:
+      | "spacing"
+      | "curveTolerance"
+      | "endpointTolerance"
+      | "exportWithSheetsSpaceValue"
+  ): void => {
+    const value = settings[key];
+    if (typeof value === "number") {
+      normalized[key] = value * conversion;
+    }
+  };
+
+  convertDistanceSetting("spacing");
+  convertDistanceSetting("curveTolerance");
+  convertDistanceSetting("endpointTolerance");
+  convertDistanceSetting("exportWithSheetsSpaceValue");
+
+  return normalized;
+}
+
 function applyCliSettings(settings: CliSettingsInput): void {
   console.log("[cli-input][renderer] applyCliSettings() start", settings);
 
@@ -307,26 +364,42 @@ function applyCliSettings(settings: CliSettingsInput): void {
     return;
   }
 
+  const normalizedSettings = normalizeCliSettingsForInternalConfig(settings);
+
   const allowedKeys: Array<keyof CliSettingsInput> = [
-    "mergeLines",
-    "timeRatio",
-    "populationSize",
-    "mutationRate",
-    "rotations",
-    "spacing",
-    "placementType",
+    // Nesting configuration
     "units",
+    "spacing",
     "curveTolerance",
+    "rotations",
+    "placementType",
     "simplify",
     "threads",
+
+    // Import / Export
+    "useSvgPreProcessor",
     "scale",
     "endpointTolerance",
     "dxfImportScale",
     "dxfExportScale",
+    "exportWithSheetBoundboarders",
+    "exportWithSheetsSpace",
+    "exportWithSheetsSpaceValue",
+
+    // Laser options
+    "mergeLines",
+    "timeRatio",
+
+    // Meta-heuristic fine tuning
+    "populationSize",
+    "mutationRate",
+
+    // Other settings
+    "useQuantityFromFileName",
   ];
 
   for (const key of allowedKeys) {
-    const value = settings[key];
+    const value = normalizedSettings[key];
     if (value !== undefined) {
       (
         configService as unknown as {
@@ -344,7 +417,10 @@ function applyCliSettings(settings: CliSettingsInput): void {
   const cfgValues = configService.getSync() as unknown as ConfigResult;
   updateForm(cfgValues);
 
-  console.log("[cli-input][renderer] applyCliSettings() done");
+  console.log(
+    "[cli-input][renderer] applyCliSettings() done",
+    normalizedSettings
+  );
 }
 
 function getCliSheetConversionFactor(): number {
