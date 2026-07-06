@@ -35,55 +35,58 @@ You can start the app with a JSON job file:
 npm run start -- input.json
 ```
 
-The JSON file can contain:
+## CLI JSON input (`input.json`)
 
-- `settings` – nesting configuration
-- `sheets` – sheet definitions
-- `parts` – files to import as parts
-- `autoStart` – automatically start nesting
-- `output.resultJson` – path for exporting the best nesting result as JSON
+You can run Deepnest with a JSON job file:
 
-### Supported sheet types
+```bash
+npm run start -- input.json
+```
 
-The `sheets` array supports:
+Top-level structure:
 
-1. **Rectangular sheets**
-2. **Polygon sheets**
-3. **Polygon sheets with holes**
+- `settings` – configuration values (same idea as GUI settings)
+- `sheets` – sheet/bin definitions (rectangles or polygons, with optional holes)
+- `parts` – input files to nest
+- `autoStart` – start nesting automatically after loading
+- `output.resultJson` – write best/current result to JSON file
 
-### Example `input.json`
+---
+
+### Full example
 
 ```json
 {
   "settings": {
+    "units": "mm",
+    "spacing": 3.52777,
+    "curveTolerance": 0.25399,
+    "rotations": 1,
+    "placementType": "convexhull",
+    "simplify": false,
+    "threads": 3,
+
+    "useSvgPreProcessor": false,
+    "scale": 2.83464,
+    "endpointTolerance": 0.12699,
+    "dxfImportScale": 1,
+    "dxfExportScale": 1,
+    "exportWithSheetBoundboarders": false,
+    "exportWithSheetsSpace": false,
+    "exportWithSheetsSpaceValue": 0.13888,
+
     "mergeLines": true,
     "timeRatio": 0.5,
     "populationSize": 10,
     "mutationRate": 10,
-    "rotations": 1,
-    "spacing": 10,
-    "placementType": "gravity",
-    "units": "mm"
+
+    "useQuantityFromFileName": false
   },
   "sheets": [
     {
       "type": "rect",
       "width": 500,
       "height": 500,
-      "quantity": 1
-    },
-    {
-      "type": "polygon",
-      "outer": [
-        { "x": 338, "y": 300 },
-        { "x": 0, "y": 300 },
-        { "x": 0, "y": 0 },
-        { "x": 212.795013882, "y": 0 },
-        { "x": 212.795013882, "y": 71 },
-        { "x": 378.795013882, "y": 71 },
-        { "x": 378.795013882, "y": 183 },
-        { "x": 338, "y": 183 }
-      ],
       "quantity": 1
     },
     {
@@ -126,18 +129,8 @@ The `sheets` array supports:
     }
   ],
   "parts": [
-    {
-      "path": "tests/assets/zvaigzneSVG.svg",
-      "quantity": 10
-    },
-    {
-      "path": "tests/assets/henny-penny.svg",
-      "quantity": 1
-    },
-    {
-      "path": "tests/assets/mrs-saint-delafield.svg",
-      "quantity": 1
-    }
+    { "path": "tests/assets/zvaigzneSVG.svg", "quantity": 10 },
+    { "path": "tests/assets/henny-penny.svg", "quantity": 1 }
   ],
   "autoStart": true,
   "output": {
@@ -146,17 +139,219 @@ The `sheets` array supports:
 }
 ```
 
-### Notes
+---
 
-- `settings.units` defines the units used in sheet dimensions and polygon points.
-- For `type: "rect"`, use `width` and `height`.
-- For `type: "polygon"`, use `outer`.
-- If the sheet has cutouts/holes, add them in `holes`.
-- `quantity` is optional and defaults to `1`.
-- `parts[].path` must point to importable SVG/DXF files.
-- If `autoStart` is `true`, nesting starts automatically after loading the JSON file.
-- If `output.resultJson` is set, the best nesting result is written to that file.
+## `settings` – detailed option reference
 
+> `units` affects how GUI-style numeric values are interpreted in JSON (for example spacing/tolerance-like values).
+
+### Nesting configuration
+
+- `units`: `"mm"` or `"inch"`
+  - Unit system for GUI-style values in JSON.
+
+- `spacing`: `number`
+  - Minimum distance between parts.
+  - Higher value = safer cut gap, lower packing density.
+
+- `curveTolerance`: `number`
+  - Tolerance used when approximating curved geometry.
+  - Lower = more precise, slower.
+  - Higher = faster, less precise.
+
+- `rotations`: `integer` (recommended `1..32`)
+  - Number of allowed rotation steps.
+  - Example: `1` = fixed orientation, `4` = 0/90/180/270.
+
+- `placementType`: `"gravity"` | `"box"` | `"convexhull"`
+  - `gravity`: general purpose strategy.
+  - `box`: bounding-box based strategy.
+  - `convexhull`: squeeze strategy (often better for irregular layouts).
+
+- `simplify`: `boolean`
+  - Enables rough approximation mode for faster processing.
+
+- `threads`: `integer` (typically `1..8`)
+  - Number of CPU worker threads.
+
+---
+
+### Import / export related
+
+- `useSvgPreProcessor`: `boolean`
+  - Enables SVG pre-cleanup before import.
+
+- `scale`: `number`
+  - SVG scale value (GUI-style):
+    - if `units = "inch"` => units/inch
+    - if `units = "mm"` => units/mm
+
+- `endpointTolerance`: `number`
+  - Endpoint matching tolerance for shape cleanup.
+
+- `dxfImportScale`: `number`
+  - DXF import unit mapping.
+  - GUI common values:
+    - `1` = Points
+    - `12` = Picas
+    - `72` = Inches
+    - `2.83465` = mm
+    - `28.3465` = cm
+
+- `dxfExportScale`: `number`
+  - DXF export unit mapping.
+  - GUI common values:
+    - `72` = Points
+    - `6` = Picas
+    - `1` = Inches
+    - `25.4` = mm
+    - `2.54` = cm
+
+- `exportWithSheetBoundboarders`: `boolean`
+  - Include sheet outlines in exported files.
+
+- `exportWithSheetsSpace`: `boolean`
+  - Add spacing between multiple sheets in exported SVG.
+
+- `exportWithSheetsSpaceValue`: `number`
+  - Distance between exported sheets.
+
+---
+
+### Laser options
+
+- `mergeLines`: `boolean`
+  - Merge common/overlapping collinear lines.
+  - Usually useful for laser/plasma to reduce duplicate cuts.
+
+- `timeRatio`: `number` (`0..1`)
+  - Optimization bias:
+    - `0` = material utilization priority
+    - `1` = cut-time/path efficiency priority
+
+---
+
+### Meta-heuristic tuning
+
+- `populationSize`: `integer` (recommended `>= 3`)
+  - Genetic algorithm population size.
+
+- `mutationRate`: `integer` (recommended `>= 1`)
+  - Genetic algorithm mutation rate/intensity.
+
+---
+
+### Other
+
+- `useQuantityFromFileName`: `boolean`
+  - Parses quantity from filename pattern like:
+  - `part.3.svg` => quantity `3`
+
+---
+
+## `sheets` – sheet definitions
+
+`sheets` is an array. Each entry can be one of:
+
+### 1) Rectangle sheet
+
+```json
+{
+  "type": "rect",
+  "width": 500,
+  "height": 500,
+  "quantity": 1
+}
+```
+
+- `width`: sheet width
+- `height`: sheet height
+- `quantity`: optional, defaults to `1`
+
+### 2) Polygon sheet (without holes)
+
+```json
+{
+  "type": "polygon",
+  "outer": [
+    { "x": 0, "y": 0 },
+    { "x": 500, "y": 0 },
+    { "x": 500, "y": 300 },
+    { "x": 0, "y": 300 }
+  ],
+  "quantity": 1
+}
+```
+
+- `outer`: closed contour points (implicit closure)
+- `quantity`: optional, defaults to `1`
+
+### 3) Polygon sheet with holes
+
+```json
+{
+  "type": "polygon",
+  "outer": [ ... ],
+  "holes": [
+    [ ... ],
+    [ ... ]
+  ],
+  "quantity": 1
+}
+```
+
+- `holes`: array of hole contours, each hole is its own point array.
+
+---
+
+## `parts` – part definitions
+
+```json
+[
+  { "path": "tests/assets/part1.svg", "quantity": 5 },
+  { "path": "tests/assets/part2.dxf", "quantity": 2 }
+]
+```
+
+- `path`: file path to importable part file
+- `quantity`: optional (if omitted, default behavior applies)
+
+---
+
+## `autoStart`
+
+- `true` (default behavior) → nesting starts automatically after loading.
+- `false` → data is loaded, but nesting does not start until user action.
+
+---
+
+## `output`
+
+- `output.resultJson`: output file path for writing selected/best nesting result payload.
+
+Example:
+
+```json
+"output": {
+  "resultJson": "result.json"
+}
+```
+
+---
+
+## Practical tips
+
+- Start with:
+  - `placementType: "gravity"` or `"convexhull"`
+  - `rotations: 4`
+  - `spacing`: realistic machine kerf/safety gap
+- For speed on complex files:
+  - reduce `rotations`
+  - increase `curveTolerance`
+  - set `simplify: true`
+- For better packing quality:
+  - increase `populationSize`
+  - keep `simplify: false`
 
 ## License
 
