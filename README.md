@@ -153,6 +153,14 @@ Top-level structure:
 - `spacing`: `number`
   - Minimum distance between parts.
   - Higher value = safer cut gap, lower packing density.
+  
+- `partToSheet`: `number`
+  - Minimum real distance between a part and the sheet outer boundary or an
+    internal sheet-hole boundary.
+  - Uses the same unit system as `spacing`.
+  - When `units` is `"mm"`, specify this value in millimeters.
+  - A value of `0` allows parts to use the complete working sheet area while
+    still accounting for the `spacing` compensation.
 
 - `curveTolerance`: `number`
   - Tolerance used when approximating curved geometry.

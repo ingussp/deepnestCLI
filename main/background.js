@@ -1806,11 +1806,22 @@ function placeParts(sheets, parts, config, nestindex) {
     }
 
     if (placements && placements.length > 0) {
-      allplacements.push({ sheet: sheet.source, sheetid: sheet.id, sheetplacements: placements });
-    }
-    else {
-      break; // something went wrong
-    }
+	  allplacements.push({
+		sheet: sheet.source,
+		sheetid: sheet.id,
+		sheetplacements: placements
+	  });
+	} else {
+		/*
+		 * No parts fit on this sheet. This is not a fatal error:
+		 * the next sheet may be larger or have a more suitable shape.
+		 */
+	  if (sheets.length > 0) {
+		continue;
+	  }
+
+	  break;
+	}
 
     if (sheets.length == 0) {
       break;

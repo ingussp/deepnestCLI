@@ -25,6 +25,7 @@ export const DEFAULT_CONFIG: Readonly<UIConfig> = {
   units: "inch" as UnitType,
   scale: 72, // actual stored value will be in units/inch
   spacing: 0,
+  partToSheet: 0,
   curveTolerance: 0.72, // store distances in native units
   clipperScale: 10000000,
   rotations: 4,
@@ -77,6 +78,7 @@ export class ConfigService implements ConfigObject {
   units: UnitType;
   scale: number;
   spacing: number;
+  partToSheet: number;
   curveTolerance: number;
   clipperScale: number;
   rotations: number;
@@ -111,6 +113,7 @@ export class ConfigService implements ConfigObject {
     this.units = this.config.units;
     this.scale = this.config.scale;
     this.spacing = this.config.spacing;
+	this.partToSheet = this.config.partToSheet;
     this.curveTolerance = this.config.curveTolerance;
     this.clipperScale = this.config.clipperScale;
     this.rotations = this.config.rotations;
@@ -194,6 +197,7 @@ export class ConfigService implements ConfigObject {
     this.units = this.config.units;
     this.scale = this.config.scale;
     this.spacing = this.config.spacing;
+	this.partToSheet = this.config.partToSheet;
     this.curveTolerance = this.config.curveTolerance;
     this.clipperScale = this.config.clipperScale;
     this.rotations = this.config.rotations;

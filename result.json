@@ -1,24 +1,34 @@
 {
   "success": true,
-  "generatedAt": "2026-07-05T18:25:22.262Z",
+  "generatedAt": "2026-07-16T02:14:46.698Z",
   "inputPath": "C:\\dev\\deepnestCLI\\input.json",
-  "fitness": 26118090472.414806,
-  "area": 323675.25699168124,
-  "totalarea": 780051.5382041656,
-  "mergedLength": 0,
-  "utilisation": 41.49408611344403,
-  "index": 0,
+  "fitness": 8421730156.4688015,
+  "area": 486660.78549364634,
+  "totalarea": 800845.1138161526,
+  "mergedLength": 2221.6297190605624,
+  "utilisation": 60.768402915593924,
+  "index": 6,
   "placements": [
     {
-      "sheet": 1,
+      "sheet": 0,
       "sheetId": "0000-0000",
       "parts": [
         {
+          "id": 0,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": -0.9270991198756064,
+          "y": 93.63716767853957,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
           "id": 1,
           "source": 2,
-          "filename": "zvaigzneSVG.svg",
-          "x": 4.527417048310127,
-          "y": 3.6818444764802134,
+          "filename": "irregular_romb.svg",
+          "x": 116.27481099999999,
+          "y": -0.9270991000000066,
           "rotation": 0,
           "mergedLength": 0,
           "mergedSegments": []
@@ -26,59 +36,87 @@
         {
           "id": 2,
           "source": 2,
-          "filename": "zvaigzneSVG.svg",
-          "x": 16.576448999999997,
-          "y": 226.9348795,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 3,
-          "source": 2,
-          "filename": "zvaigzneSVG.svg",
-          "x": 28.625481000000008,
-          "y": 450.1879145,
-          "rotation": 0,
+          "filename": "irregular_romb.svg",
+          "x": 93.63716690000003,
+          "y": 210.8390776,
+          "rotation": 180,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
           "id": 4,
           "source": 2,
-          "filename": "zvaigzneSVG.svg",
-          "x": 196.8683223,
-          "y": 311.0447034,
-          "rotation": 0,
+          "filename": "irregular_romb.svg",
+          "x": 210.839077,
+          "y": 116.2748108,
+          "rotation": 90,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
+          "id": 3,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 153.4080927,
+          "y": 203.36985150000004,
+          "rotation": 270,
+          "mergedLength": 38.50760770105547,
+          "mergedSegments": [
+            [
+              {
+                "x": 172.78317877871135,
+                "y": 142.9858892118104
+              },
+              {
+                "x": 191.4639909,
+                "y": 176.65877310000002
+              }
+            ]
+          ]
+        },
+        {
           "id": 5,
           "source": 2,
-          "filename": "zvaigzneSVG.svg",
-          "x": 184.81929029999998,
-          "y": 87.7916684,
+          "filename": "irregular_romb.svg",
+          "x": 6.542126699999997,
+          "y": 153.40809309999997,
           "rotation": 0,
+          "mergedLength": 38.507607166807674,
+          "mergedSegments": [
+            [
+              {
+                "x": 66.92608852101796,
+                "y": 172.78317943788565
+              },
+              {
+                "x": 33.2532051,
+                "y": 191.46399129999998
+              }
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "sheet": 1,
+      "sheetId": "0001-0000",
+      "parts": [
+        {
+          "id": 7,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 100.01316820000002,
+          "y": 843.3919721999999,
+          "rotation": 180,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
           "id": 6,
           "source": 2,
-          "filename": "zvaigzneSVG.svg",
-          "x": 208.9173543,
-          "y": 534.2977384,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 7,
-          "source": 2,
-          "filename": "zvaigzneSVG.svg",
-          "x": 377.16019559999995,
-          "y": 395.1545273,
+          "filename": "irregular_romb.svg",
+          "x": -0.9270952000000108,
+          "y": 624.9531092,
           "rotation": 0,
           "mergedLength": 0,
           "mergedSegments": []
@@ -86,9 +124,9 @@
         {
           "id": 8,
           "source": 2,
-          "filename": "zvaigzneSVG.svg",
-          "x": 365.11116359999994,
-          "y": 171.9014923,
+          "filename": "irregular_romb.svg",
+          "x": 7.004114399999992,
+          "y": 537.4379238,
           "rotation": 0,
           "mergedLength": 0,
           "mergedSegments": []
@@ -96,559 +134,1035 @@
         {
           "id": 9,
           "source": 2,
-          "filename": "zvaigzneSVG.svg",
-          "x": 476.26482510000005,
-          "y": 579.8621643,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
+          "filename": "irregular_romb.svg",
+          "x": 127.35236070000002,
+          "y": 576.4209222,
+          "rotation": 180,
+          "mergedLength": 76.53528007845016,
+          "mergedSegments": [
+            [
+              {
+                "x": 100.64128230000001,
+                "y": 538.365024
+              },
+              {
+                "x": 33.715192800000025,
+                "y": 575.4938219999999
+              }
+            ]
+          ]
         },
         {
           "id": 10,
           "source": 2,
-          "filename": "zvaigzneSVG.svg",
-          "x": 545.4030369,
-          "y": 256.0113162,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 17,
-          "source": 9,
-          "filename": "henny-penny.svg",
-          "x": -207.25821849999997,
-          "y": 153.9656645,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 36,
-          "source": 28,
-          "filename": "henny-penny.svg",
-          "x": -1009.7781011999999,
-          "y": 606.546326,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 16,
-          "source": 8,
-          "filename": "henny-penny.svg",
-          "x": 169.46455100000003,
-          "y": 706.7120615,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 12,
-          "source": 4,
-          "filename": "henny-penny.svg",
-          "x": 580.6750849,
-          "y": 465.6702349,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 18,
-          "source": 10,
-          "filename": "henny-penny.svg",
-          "x": 311.62124950000003,
-          "y": 582.9201694000001,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 14,
-          "source": 6,
-          "filename": "henny-penny.svg",
-          "x": 124.84371570000002,
-          "y": 718.3493283,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 27,
-          "source": 19,
-          "filename": "henny-penny.svg",
-          "x": -189.08831369999996,
-          "y": 620.2763849,
-          "rotation": 0,
+          "filename": "irregular_romb.svg",
+          "x": 127.975315,
+          "y": 354.8648943,
+          "rotation": 90,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
           "id": 11,
-          "source": 3,
-          "filename": "henny-penny.svg",
-          "x": 12.644233800000002,
-          "y": 56.18895799999999,
-          "rotation": 0,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 127.975315,
+          "y": 281.4219503,
+          "rotation": 90,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
-          "id": 28,
-          "source": 20,
-          "filename": "henny-penny.svg",
-          "x": -703.4699272,
-          "y": 497.31282359999994,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 25,
-          "source": 17,
-          "filename": "henny-penny.svg",
-          "x": -364.0079094,
-          "y": 13.139392200000003,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 30,
-          "source": 22,
-          "filename": "henny-penny.svg",
-          "x": -710.1429559999999,
-          "y": 388.8196855,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 22,
-          "source": 14,
-          "filename": "henny-penny.svg",
-          "x": -387.1804932,
-          "y": 277.5072868,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 32,
-          "source": 24,
-          "filename": "henny-penny.svg",
-          "x": -636.486233,
-          "y": 274.54642160000003,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 34,
-          "source": 26,
-          "filename": "henny-penny.svg",
-          "x": -747.9697139,
-          "y": 485.86630629999996,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 24,
-          "source": 16,
-          "filename": "henny-penny.svg",
-          "x": -116.16287139999997,
-          "y": 109.42662329999999,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 43,
-          "source": 35,
-          "filename": "mrs-saint-delafield.svg",
-          "x": 295.1036507,
-          "y": 548.5428926,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 54,
-          "source": 46,
-          "filename": "mrs-saint-delafield.svg",
-          "x": -210.93289060000004,
-          "y": 631.8357751,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 31,
-          "source": 23,
-          "filename": "henny-penny.svg",
-          "x": -586.7179819,
-          "y": 53.8757821,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 35,
-          "source": 27,
-          "filename": "henny-penny.svg",
-          "x": -514.331247,
-          "y": 186.9209004,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 23,
-          "source": 15,
-          "filename": "henny-penny.svg",
-          "x": -2.1054945000000203,
-          "y": 352.5437513,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 37,
-          "source": 29,
-          "filename": "henny-penny.svg",
-          "x": -609.3315255000001,
-          "y": 466.6912911,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 29,
-          "source": 21,
-          "filename": "henny-penny.svg",
-          "x": -195.3050803,
-          "y": 735.8267118000001,
-          "rotation": 0,
+          "id": 12,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 127.975315,
+          "y": 207.97900629999998,
+          "rotation": 90,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
           "id": 13,
-          "source": 5,
-          "filename": "henny-penny.svg",
-          "x": -50.98157849999998,
-          "y": 651.8408198000001,
-          "rotation": 0,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 127.975315,
+          "y": 134.53606229999997,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 14,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 127.975315,
+          "y": 61.0931183,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 16,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 186.05492250000003,
+          "y": 630.0328293,
+          "rotation": 180,
+          "mergedLength": 84.63510150739188,
+          "mergedSegments": [
+            [
+              {
+                "x": 100.34896420000001,
+                "y": 541.5905437
+              },
+              {
+                "x": 92.71007270104671,
+                "y": 625.8802094000948
+              }
+            ]
+          ]
+        },
+        {
+          "id": 17,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 214.9641095,
+          "y": 439.116347,
+          "rotation": 180,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
           "id": 15,
-          "source": 7,
-          "filename": "henny-penny.svg",
-          "x": -137.9986429,
-          "y": -17.602333100000003,
-          "rotation": 0,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 83.2199904,
+          "y": 244.4794682,
+          "rotation": 270,
+          "mergedLength": 107.71346312711044,
+          "mergedSegments": [
+            [
+              {
+                "x": 89.91941677200134,
+                "y": 161.2471407155329
+              },
+              {
+                "x": 121.2758886,
+                "y": 217.7683898
+              }
+            ],
+            [
+              {
+                "x": 127.04821479873176,
+                "y": 154.73028621399402
+              },
+              {
+                "x": 84.14709059999998,
+                "y": 150.84230030000003
+              }
+            ]
+          ]
+        },
+        {
+          "id": 18,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 220.68538270000002,
+          "y": 155.6573864,
+          "rotation": 180,
           "mergedLength": 0,
           "mergedSegments": []
+        },
+        {
+          "id": 19,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 250.31374879999998,
+          "y": 217.14596919999997,
+          "rotation": 90,
+          "mergedLength": 92.43775608344563,
+          "mergedSegments": [
+            [
+              {
+                "x": 211.1953066894369,
+                "y": 243.55236803683786
+              },
+              {
+                "x": 122.33843249999998,
+                "y": 218.07306939999998
+              }
+            ]
+          ]
+        },
+        {
+          "id": 20,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 288.9703379,
+          "y": 134.97040879999997,
+          "rotation": 90,
+          "mergedLength": 68.30224572387965,
+          "mergedSegments": [
+            [
+              {
+                "x": 171.6622759881675,
+                "y": 158.77350990551759
+              },
+              {
+                "x": 200.5280523,
+                "y": 220.6763671
+              }
+            ]
+          ]
+        },
+        {
+          "id": 21,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 185.69386479999997,
+          "y": 15.270313699999988,
+          "rotation": 0,
+          "mergedLength": 66.86553367545596,
+          "mergedSegments": [
+            [
+              {
+                "x": 212.40494319999996,
+                "y": 53.32621189999999
+              },
+              {
+                "x": 193.9743043224127,
+                "y": 117.60148820642675
+              }
+            ]
+          ]
+        },
+        {
+          "id": 22,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 362.9221619,
+          "y": 127.975315,
+          "rotation": 180,
+          "mergedLength": 64.44259053351101,
+          "mergedSegments": [
+            [
+              {
+                "x": 277.2162036,
+                "y": 39.53302940000002
+              },
+              {
+                "x": 271.39982306486263,
+                "y": 103.71259929681561
+              }
+            ]
+          ]
+        },
+        {
+          "id": 23,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 363.508656,
+          "y": 119.51031489999998,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 24,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 339.33907380000005,
+          "y": 352.3687189,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 25,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 4.044142500000007,
+          "y": 100.80328970000002,
+          "rotation": 270,
+          "mergedLength": 49.74646996725561,
+          "mergedSegments": [
+            [
+              {
+                "x": 42.100040699999994,
+                "y": 74.0922113
+              },
+              {
+                "x": 89.9194167919371,
+                "y": 87.80419672811864
+              }
+            ]
+          ]
         },
         {
           "id": 26,
-          "source": 18,
-          "filename": "henny-penny.svg",
-          "x": -269.55540759999997,
-          "y": 716.7533435,
-          "rotation": 0,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 426.8541789,
+          "y": 161.1438592,
+          "rotation": 180,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
-          "id": 55,
-          "source": 47,
-          "filename": "mrs-saint-delafield.svg",
-          "x": 296.43003930000003,
-          "y": 447.60537129999994,
-          "rotation": 0,
+          "id": 27,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 332.28991080000003,
+          "y": 253.85392690000003,
+          "rotation": 270,
+          "mergedLength": 60.53047177499187,
+          "mergedSegments": [
+            [
+              {
+                "x": 333.21701099999996,
+                "y": 160.21675900000002
+              },
+              {
+                "x": 362.58155578346094,
+                "y": 213.1474828091754
+              }
+            ]
+          ]
+        },
+        {
+          "id": 29,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 498.4369181,
+          "y": 167.6311643,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 30,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 541.3515088,
+          "y": 226.93846449999998,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 28,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 462.9382821,
+          "y": 216.06988129999996,
+          "rotation": 90,
+          "mergedLength": 56.73436810018129,
+          "mergedSegments": [
+            [
+              {
+                "x": 424.8823839,
+                "y": 242.78095969999998
+              },
+              {
+                "x": 370.3458089971629,
+                "y": 227.14284850989412
+              }
+            ]
+          ]
+        },
+        {
+          "id": 31,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 291.7169104,
+          "y": 575.7130539999999,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 32,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 194.7652266,
+          "y": 851.319095,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 34,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 475.23607660000005,
+          "y": 94.81487250000002,
+          "rotation": 270,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
           "id": 33,
-          "source": 25,
-          "filename": "henny-penny.svg",
-          "x": -333.61173269999995,
-          "y": 204.2386108,
-          "rotation": 0,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 428.00878550000004,
+          "y": 343.7247208,
+          "rotation": 270,
+          "mergedLength": 68.17961247897676,
+          "mergedSegments": [
+            [
+              {
+                "x": 428.9358857,
+                "y": 250.0875529
+              },
+              {
+                "x": 462.0111819144445,
+                "y": 309.7070491919866
+              }
+            ]
+          ]
+        },
+        {
+          "id": 35,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 527.2241423,
+          "y": 462.2603095,
+          "rotation": 180,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
-          "id": 58,
-          "source": 50,
-          "filename": "mrs-saint-delafield.svg",
-          "x": -37.333085799999935,
-          "y": 105.58061529999998,
-          "rotation": 0,
+          "id": 36,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 618.4414251,
+          "y": 201.36673079999997,
+          "rotation": 90,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
-          "id": 63,
-          "source": 55,
-          "filename": "mrs-saint-delafield.svg",
-          "x": 58.586989899999935,
-          "y": 621.2834186,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
+          "id": 37,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 199.98631310000002,
+          "y": 754.8421915,
+          "rotation": 270,
+          "mergedLength": 85.50295181677222,
+          "mergedSegments": [
+            [
+              {
+                "x": 288.4285987,
+                "y": 669.1362332
+              },
+              {
+                "x": 203.27462479736812,
+                "y": 661.4190123290413
+              }
+            ]
+          ]
         },
         {
-          "id": 44,
-          "source": 36,
-          "filename": "mrs-saint-delafield.svg",
-          "x": 569.8149314,
-          "y": 492.0915623,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 64,
-          "source": 56,
-          "filename": "mrs-saint-delafield.svg",
-          "x": -457.8429956,
-          "y": 655.222049,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 41,
-          "source": 33,
-          "filename": "mrs-saint-delafield.svg",
-          "x": 155.244427,
-          "y": 711.8879717,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 51,
-          "source": 43,
-          "filename": "mrs-saint-delafield.svg",
-          "x": 74.02677010000002,
-          "y": 40.27226030000001,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 50,
-          "source": 42,
-          "filename": "mrs-saint-delafield.svg",
-          "x": 452.7905126,
-          "y": 564.362514,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 45,
-          "source": 37,
-          "filename": "mrs-saint-delafield.svg",
-          "x": 495.32438069999995,
-          "y": 691.0300191,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 20,
-          "source": 12,
-          "filename": "henny-penny.svg",
-          "x": 340.1811351,
-          "y": 627.5353244,
+          "id": 38,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 296.07572619999996,
+          "y": 559.5484076,
           "rotation": 0,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
           "id": 39,
-          "source": 31,
-          "filename": "mrs-saint-delafield.svg",
-          "x": 686.8266168,
-          "y": 720.2791332,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 49,
-          "source": 41,
-          "filename": "mrs-saint-delafield.svg",
-          "x": 551.9783769,
-          "y": 639.0532794000001,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 52,
-          "source": 44,
-          "filename": "mrs-saint-delafield.svg",
-          "x": -53.76500960000004,
-          "y": 201.77159260000002,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 38,
-          "source": 30,
-          "filename": "mrs-saint-delafield.svg",
-          "x": 520.1462088,
-          "y": 732.2266408,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 53,
-          "source": 45,
-          "filename": "mrs-saint-delafield.svg",
-          "x": -351.9421707,
-          "y": 428.423341,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 61,
-          "source": 53,
-          "filename": "mrs-saint-delafield.svg",
-          "x": -562.5899870000001,
-          "y": 281.54028819999996,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 59,
-          "source": 51,
-          "filename": "mrs-saint-delafield.svg",
-          "x": 32.19858899999997,
-          "y": 115.7477212,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 400.7456689,
+          "y": 463.4082595,
           "rotation": 0,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
           "id": 40,
-          "source": 32,
-          "filename": "mrs-saint-delafield.svg",
-          "x": -40.8935051,
-          "y": 104.279038,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 491.06729099999995,
+          "y": 325.9372372,
+          "rotation": 0,
+          "mergedLength": 62.63775634163669,
+          "mergedSegments": [
+            [
+              {
+                "x": 517.7783694,
+                "y": 363.9931354
+              },
+              {
+                "x": 500.5130638864246,
+                "y": 424.2044112961073
+              }
+            ]
+          ]
+        },
+        {
+          "id": 41,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 368.7778681,
+          "y": 562.1318914,
           "rotation": 0,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
-          "id": 62,
-          "source": 54,
-          "filename": "mrs-saint-delafield.svg",
-          "x": -150.78084480000007,
-          "y": 568.0901334,
+          "id": 43,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 486.64555799999994,
+          "y": 411.5054592,
           "rotation": 0,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
           "id": 42,
-          "source": 34,
-          "filename": "mrs-saint-delafield.svg",
-          "x": -50.322876199999996,
-          "y": 515.6089978,
-          "rotation": 0,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 190.4534241,
+          "y": 825.5516236,
+          "rotation": 270,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
-          "id": 57,
-          "source": 49,
-          "filename": "mrs-saint-delafield.svg",
-          "x": -415.6708976,
-          "y": 381.166802,
-          "rotation": 0,
+          "id": 44,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 296.0757262,
+          "y": 781.1608918000001,
+          "rotation": 270,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
-          "id": 60,
-          "source": 52,
-          "filename": "mrs-saint-delafield.svg",
-          "x": -363.43017410000004,
-          "y": -49.884721400000004,
+          "id": 45,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 406.871026,
+          "y": 738.9185651,
+          "rotation": 90,
+          "mergedLength": 144.58636855197912,
+          "mergedSegments": [
+            [
+              {
+                "x": 318.4287404,
+                "y": 824.6245234
+              },
+              {
+                "x": 278.8957097,
+                "y": 739.8456653000001
+              }
+            ],
+            [
+              {
+                "x": 327.96162938530586,
+                "y": 753.9150913512444
+              },
+              {
+                "x": 278.8957097,
+                "y": 739.8456653000001
+              }
+            ]
+          ]
+        },
+        {
+          "id": 46,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 548.1209943,
+          "y": 651.5012772,
+          "rotation": 180,
+          "mergedLength": 87.87384002827858,
+          "mergedSegments": [
+            [
+              {
+                "x": 454.4838264,
+                "y": 650.574177
+              },
+              {
+                "x": 462.415036,
+                "y": 563.0589916
+              }
+            ]
+          ]
+        },
+        {
+          "id": 47,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 409.3568775,
+          "y": 622.7349094,
           "rotation": 0,
+          "mergedLength": 55.47527468695924,
+          "mergedSegments": [
+            [
+              {
+                "x": 502.9940454,
+                "y": 623.6620096
+              },
+              {
+                "x": 454.4838263881811,
+                "y": 650.574176978696
+              }
+            ]
+          ]
+        },
+        {
+          "id": 48,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 513.1581504000001,
+          "y": 831.1468414999999,
+          "rotation": 180,
+          "mergedLength": 74.60009133270006,
+          "mergedSegments": [
+            [
+              {
+                "x": 495.0628358134169,
+                "y": 711.1771950287726
+              },
+              {
+                "x": 427.45219210000005,
+                "y": 742.7045559
+              }
+            ]
+          ]
+        },
+        {
+          "id": 49,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 588.7000037,
+          "y": 712.1042952,
+          "rotation": 180,
+          "mergedLength": 87.87384002827858,
+          "mergedSegments": [
+            [
+              {
+                "x": 495.0628358,
+                "y": 711.177195
+              },
+              {
+                "x": 502.9940454,
+                "y": 623.6620096
+              }
+            ]
+          ]
+        },
+        {
+          "id": 50,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 598.0819385,
+          "y": 790.0146128,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 51,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 670.4104172,
+          "y": 415.306623,
+          "rotation": 180,
+          "mergedLength": 87.87384002827864,
+          "mergedSegments": [
+            [
+              {
+                "x": 576.7732493,
+                "y": 414.3795228
+              },
+              {
+                "x": 584.7044589,
+                "y": 326.8643374
+              }
+            ]
+          ]
+        },
+        {
+          "id": 52,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 673.6237918,
+          "y": 670.9720665,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 53,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 695.2689962,
+          "y": 190.0331036,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 54,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 794.5792613,
+          "y": 280.2293732,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 55,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 647.5161495,
+          "y": 454.3439093,
+          "rotation": 270,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
           "id": 56,
-          "source": 48,
-          "filename": "mrs-saint-delafield.svg",
-          "x": -446.0145458,
-          "y": 225.34036809999998,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 763.2796721,
+          "y": 577.6246082,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 57,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 659.8748327,
+          "y": 316.8503631,
+          "rotation": 270,
+          "mergedLength": 130.0913337139703,
+          "mergedSegments": [
+            [
+              {
+                "x": 697.9307309,
+                "y": 290.13928469999996
+              },
+              {
+                "x": 756.5233630991854,
+                "y": 306.94045160284065
+              }
+            ],
+            [
+              {
+                "x": 660.8019328999999,
+                "y": 223.21319519999997
+              },
+              {
+                "x": 694.3418960154927,
+                "y": 283.670271491405
+              }
+            ]
+          ]
+        },
+        {
+          "id": 58,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 863.9337514,
+          "y": 367.7108508,
+          "rotation": 90,
+          "mergedLength": 93.54311998788093,
+          "mergedSegments": [
+            [
+              {
+                "x": 775.4914658,
+                "y": 453.4168091
+              },
+              {
+                "x": 735.9584351,
+                "y": 368.637951
+              }
+            ]
+          ]
+        },
+        {
+          "id": 59,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 755.3484625,
+          "y": 665.1397936,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 60,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 890.3278882,
+          "y": 448.72219169999994,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 61,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 873.5976596,
+          "y": 517.3678198,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 62,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 786.3233446,
+          "y": 731.0709237,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 63,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 570.961653,
+          "y": 622.1772904000001,
+          "rotation": 0,
+          "mergedLength": 147.9740433079728,
+          "mergedSegments": [
+            [
+              {
+                "x": 597.1548382945491,
+                "y": 662.039296498437
+              },
+              {
+                "x": 571.8887532,
+                "y": 750.1526067000001
+              }
+            ],
+            [
+              {
+                "x": 646.9127134017082,
+                "y": 632.916168303079
+              },
+              {
+                "x": 597.6727314,
+                "y": 660.2331886000001
+              }
+            ]
+          ]
+        },
+        {
+          "id": 64,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 857.9060838,
+          "y": 737.5582287999999,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 65,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 772.4311848,
+          "y": 715.386905,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 66,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 574.6821666,
+          "y": 842.0548706000001,
+          "rotation": 270,
+          "mergedLength": 49.369487537407196,
+          "mergedSegments": [
+            [
+              {
+                "x": 683.9888991706852,
+                "y": 801.0928633136697
+              },
+              {
+                "x": 663.1244522,
+                "y": 756.3489123
+              }
+            ]
+          ]
+        },
+        {
+          "id": 67,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 864.5011134,
+          "y": 817.0146466,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 68,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 949.2799715,
+          "y": 777.4816159,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 69,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 974.5124633,
+          "y": 425.1019528,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 70,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 886.2898771,
+          "y": 385.8218727,
+          "rotation": 180,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 72,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 520.4828157,
+          "y": 485.47006269999997,
+          "rotation": 0,
+          "mergedLength": 93.54311991408395,
+          "mergedSegments": [
+            [
+              {
+                "x": 521.4099159,
+                "y": 613.445379
+              },
+              {
+                "x": 547.1938941,
+                "y": 523.5259609
+              }
+            ]
+          ]
+        },
+        {
+          "id": 71,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 847.3177905,
+          "y": 568.2121012,
+          "rotation": 0,
+          "mergedLength": 76.62930471045723,
+          "mergedSegments": [
+            [
+              {
+                "x": 863.5740132000843,
+                "y": 689.0393303001808
+              },
+              {
+                "x": 933.0237488,
+                "y": 656.6543868
+              }
+            ]
+          ]
+        },
+        {
+          "id": 73,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 977.3823035,
+          "y": 352.4819223,
+          "rotation": 90,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 74,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 871.2955218,
+          "y": 397.3088904,
+          "rotation": 270,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 75,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 972.6582627999999,
+          "y": 390.7638043,
           "rotation": 0,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
-          "id": 47,
-          "source": 39,
-          "filename": "mrs-saint-delafield.svg",
-          "x": 167.5718222,
-          "y": 716.7110053,
-          "rotation": 0,
+          "id": 76,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 954.3598939,
+          "y": 397.21733750000004,
+          "rotation": 270,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
-          "id": 19,
-          "source": 11,
-          "filename": "henny-penny.svg",
-          "x": -393.2510649,
-          "y": 576.3954406,
-          "rotation": 0,
+          "id": 77,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 860.0188259,
+          "y": 307.4714096,
+          "rotation": 270,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
-          "id": 21,
-          "source": 13,
-          "filename": "henny-penny.svg",
-          "x": -414.63684109999997,
-          "y": 407.92779,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
+          "id": 78,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 1066.8743174,
+          "y": 200.33233909999996,
+          "rotation": 90,
+          "mergedLength": 70.91723915539325,
+          "mergedSegments": [
+            [
+              {
+                "x": 948.4611115115532,
+                "y": 221.76545129461266
+              },
+              {
+                "x": 978.4320318000001,
+                "y": 286.0382974
+              }
+            ]
+          ]
         },
         {
-          "id": 48,
-          "source": 40,
-          "filename": "mrs-saint-delafield.svg",
-          "x": -249.51684170000001,
-          "y": 208.16000770000002,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 46,
-          "source": 38,
-          "filename": "mrs-saint-delafield.svg",
-          "x": -229.9660434,
-          "y": 400.56053099999997,
+          "id": 79,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 864.4711535,
+          "y": 718.7822966,
           "rotation": 0,
           "mergedLength": 0,
           "mergedSegments": []

@@ -12,6 +12,7 @@ var config = {
   clipperScale: 10000000,
   curveTolerance: 0.3,
   spacing: 0,
+  partToSheet: 0,
   rotations: 4,
   populationSize: 10,
   mutationRate: 10,
@@ -517,6 +518,14 @@ export class DeepNest {
     if ("spacing" in c) {
       config.spacing = parseFloat(c.spacing);
     }
+	
+	if ("partToSheet" in c) {
+	  var partToSheet = parseFloat(c.partToSheet);
+
+	  if (isFinite(partToSheet) && partToSheet >= 0) {
+		config.partToSheet = partToSheet;
+	  }
+	}
 
     if (c.rotations && parseInt(c.rotations) > 0) {
       config.rotations = parseInt(c.rotations);
@@ -1018,65 +1027,128 @@ export class DeepNest {
     }
 
     for (var i = 0; i < parts.length; i++) {
-      if (parts[i].sheet) {
-        offsetTree(
-          parts[i].polygontree,
-          -0.5 * config.spacing,
-          this.polygonOffset.bind(this),
-          this.simplifyPolygon.bind(this),
-          true
-        );
-      } else {
-        offsetTree(
-          parts[i].polygontree,
-          0.5 * config.spacing,
-          this.polygonOffset.bind(this),
-          this.simplifyPolygon.bind(this)
-        );
-      }
-    }
+	  if (parts[i].sheet) {
+		/*
+		 * Parts are expanded by spacing / 2.
+		 *
+		 * To keep the real part at partToSheet distance from the real sheet boundary,
+		 * the working sheet offset must be:
+		 *
+		 *   spacing / 2 - partToSheet
+		 *
+		 * Positive value:
+		 *   - the outer sheet contour expands;
+		 *   - holes shrink.
+		 *
+		 * Negative value:
+		 *   - the outer sheet contour contracts;
+		 *   - holes expand.
+		 */
+		var sheetOffset =
+		  0.5 * config.spacing -
+		  config.partToSheet;
+
+		offsetTree(
+		  parts[i].polygontree,
+		  sheetOffset,
+		  this.polygonOffset.bind(this),
+		  this.simplifyPolygon.bind(this),
+		  true,
+		  true
+		);
+	  } else {
+		/*
+		 * Keep the original Deepnest spacing behavior for parts.
+		 * Negative offsets are not required here because a part outer contour
+		 * is only expanded by a positive spacing / 2 value.
+		 */
+		offsetTree(
+		  parts[i].polygontree,
+		  0.5 * config.spacing,
+		  this.polygonOffset.bind(this),
+		  this.simplifyPolygon.bind(this),
+		  false,
+		  false
+		);
+	  }
+	}
 
     // offset tree recursively
-    function offsetTree(t, offset, offsetFunction, simpleFunction, inside) {
-      var simple = t;
-      if (simpleFunction) {
-        simple = simpleFunction(t, !!inside);
-      }
+    function offsetTree(
+	  t,
+	  offset,
+	  offsetFunction,
+	  simpleFunction,
+	  inside,
+	  allowNegativeOffset
+	) {
+	  var simple = t;
 
-      var offsetpaths = [simple];
-      if (offset > 0) {
-        offsetpaths = offsetFunction(simple, offset);
-      }
+	  if (simpleFunction) {
+		simple = simpleFunction(t, !!inside);
+	  }
 
-      if (offsetpaths.length > 0) {
-        //var cleaned = cleanFunction(offsetpaths[0]);
+	  var offsetpaths = [simple];
 
-        // replace array items in place
-        Array.prototype.splice.apply(t, [0, t.length].concat(offsetpaths[0]));
-      }
+	/*
+	 * Preserve the original Deepnest behavior for parts:
+	 * only positive offsets are applied.
+	 *
+	 * Sheet geometry uses allowNegativeOffset = true, which enables:
+	 * - negative outer-contour offset: the sheet contracts;
+	 * - positive hole offset: a hole expands.
+	 */
+	  var shouldOffset = allowNegativeOffset
+		? !GeometryUtil.almostEqual(offset, 0)
+		: offset > 0;
 
-      if (simple.children && simple.children.length > 0) {
-        if (!t.children) {
-          t.children = [];
-        }
+	  if (shouldOffset) {
+		offsetpaths = offsetFunction(simple, offset);
+	  }
 
-        for (var i = 0; i < simple.children.length; i++) {
-          t.children.push(simple.children[i]);
-        }
-      }
+		/*
+		 * If a contour disappears after contraction, for example because partToSheet
+		 * is larger than the usable sheet size, do not silently retain the original
+		 * geometry.
+		 */
+	  if (!offsetpaths || offsetpaths.length === 0) {
+		t.length = 0;
 
-      if (t.children && t.children.length > 0) {
-        for (var i = 0; i < t.children.length; i++) {
-          offsetTree(
-            t.children[i],
-            -offset,
-            offsetFunction,
-            simpleFunction,
-            !inside
-          );
-        }
-      }
-    }
+		if (t.children) {
+		  t.children = [];
+		}
+
+		return;
+	  }
+
+	  Array.prototype.splice.apply(
+		t,
+		[0, t.length].concat(offsetpaths[0])
+	  );
+
+	  if (simple.children && simple.children.length > 0) {
+		if (!t.children) {
+		  t.children = [];
+		}
+
+		for (var i = 0; i < simple.children.length; i++) {
+		  t.children.push(simple.children[i]);
+		}
+	  }
+
+	  if (t.children && t.children.length > 0) {
+		for (var j = 0; j < t.children.length; j++) {
+		  offsetTree(
+			t.children[j],
+			-offset,
+			offsetFunction,
+			simpleFunction,
+			!inside,
+			allowNegativeOffset
+		  );
+		}
+	  }
+	}
 
     var self = this;
     this.working = true;

@@ -153,6 +153,7 @@ interface CliSettingsInput {
   // Nesting configuration
   units?: "inch" | "mm";
   spacing?: number;
+  partToSheet?: number;
   curveTolerance?: number;
   rotations?: number;
   placementType?: "gravity" | "box" | "convexhull";
@@ -338,6 +339,7 @@ function normalizeCliSettingsForInternalConfig(
   const convertDistanceSetting = (
     key:
       | "spacing"
+	  | "partToSheet"
       | "curveTolerance"
       | "endpointTolerance"
       | "exportWithSheetsSpaceValue"
@@ -349,6 +351,7 @@ function normalizeCliSettingsForInternalConfig(
   };
 
   convertDistanceSetting("spacing");
+  convertDistanceSetting("partToSheet");
   convertDistanceSetting("curveTolerance");
   convertDistanceSetting("endpointTolerance");
   convertDistanceSetting("exportWithSheetsSpaceValue");
@@ -370,6 +373,7 @@ function applyCliSettings(settings: CliSettingsInput): void {
     // Nesting configuration
     "units",
     "spacing",
+	"partToSheet",
     "curveTolerance",
     "rotations",
     "placementType",
