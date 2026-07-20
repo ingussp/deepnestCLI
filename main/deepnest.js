@@ -13,6 +13,7 @@ var config = {
   curveTolerance: 0.3,
   spacing: 0,
   partToSheet: 0,
+  partToHole: null,
   rotations: 4,
   populationSize: 10,
   mutationRate: 10,
@@ -526,6 +527,18 @@ export class DeepNest {
 		config.partToSheet = partToSheet;
 	  }
 	}
+	
+	if ("partToHole" in c) {
+	  if (c.partToHole === null || c.partToHole === "") {
+		config.partToHole = null;
+	  } else {
+		var partToHole = parseFloat(c.partToHole);
+
+		if (isFinite(partToHole) && partToHole >= 0) {
+		  config.partToHole = partToHole;
+		}
+	  }
+	}
 
     if (c.rotations && parseInt(c.rotations) > 0) {
       config.rotations = parseInt(c.rotations);
@@ -1026,129 +1039,158 @@ export class DeepNest {
       });
     }
 
-    for (var i = 0; i < parts.length; i++) {
-	  if (parts[i].sheet) {
-		/*
-		 * Parts are expanded by spacing / 2.
-		 *
-		 * To keep the real part at partToSheet distance from the real sheet boundary,
-		 * the working sheet offset must be:
-		 *
-		 *   spacing / 2 - partToSheet
-		 *
-		 * Positive value:
-		 *   - the outer sheet contour expands;
-		 *   - holes shrink.
-		 *
-		 * Negative value:
-		 *   - the outer sheet contour contracts;
-		 *   - holes expand.
-		 */
-		var sheetOffset =
-		  0.5 * config.spacing -
-		  config.partToSheet;
+        for (var i = 0; i < parts.length; i++) {
+      if (parts[i].sheet) {
+        /*
+         * Parts are expanded by spacing / 2.
+         *
+         * outerSheetOffset controls the real distance between a part and
+         * the outer sheet boundary.
+         *
+         * sheetHoleOffset controls the real distance between a part and
+         * internal sheet-hole boundaries.
+         */
+        var outerSheetOffset =
+          0.5 * config.spacing -
+          config.partToSheet;
 
-		offsetTree(
-		  parts[i].polygontree,
-		  sheetOffset,
-		  this.polygonOffset.bind(this),
-		  this.simplifyPolygon.bind(this),
-		  true,
-		  true
-		);
-	  } else {
-		/*
-		 * Keep the original Deepnest spacing behavior for parts.
-		 * Negative offsets are not required here because a part outer contour
-		 * is only expanded by a positive spacing / 2 value.
-		 */
-		offsetTree(
-		  parts[i].polygontree,
-		  0.5 * config.spacing,
-		  this.polygonOffset.bind(this),
-		  this.simplifyPolygon.bind(this),
-		  false,
-		  false
-		);
-	  }
-	}
+        var holeClearance =
+          config.partToHole === null
+            ? config.partToSheet
+            : config.partToHole;
 
-    // offset tree recursively
+        var sheetHoleOffset =
+          holeClearance -
+          0.5 * config.spacing;
+
+        offsetTree(
+          parts[i].polygontree,
+          outerSheetOffset,
+          this.polygonOffset.bind(this),
+          this.simplifyPolygon.bind(this),
+          true,
+          true,
+          sheetHoleOffset
+        );
+      } else {
+        /*
+         * Keep the original Deepnest spacing behavior for parts.
+         * A part outer contour is expanded by spacing / 2.
+         */
+        offsetTree(
+          parts[i].polygontree,
+          0.5 * config.spacing,
+          this.polygonOffset.bind(this),
+          this.simplifyPolygon.bind(this),
+          false,
+          false
+        );
+      }
+    }
+
+    /*
+     * Applies an offset to a polygon tree.
+     *
+     * For sheets:
+     * - offset is used for the outer sheet contour;
+     * - childOffset is used for first-level internal holes.
+     *
+     * For regular parts:
+     * - only positive offsets are applied;
+     * - child contours receive the opposite offset automatically.
+     */
     function offsetTree(
-	  t,
-	  offset,
-	  offsetFunction,
-	  simpleFunction,
-	  inside,
-	  allowNegativeOffset
-	) {
-	  var simple = t;
+      t,
+      offset,
+      offsetFunction,
+      simpleFunction,
+      inside,
+      allowNegativeOffset,
+      childOffset
+    ) {
+      var simple = t;
 
-	  if (simpleFunction) {
-		simple = simpleFunction(t, !!inside);
-	  }
+      if (simpleFunction) {
+        simple = simpleFunction(t, !!inside);
+      }
 
-	  var offsetpaths = [simple];
+      var offsetpaths = [simple];
 
-	/*
-	 * Preserve the original Deepnest behavior for parts:
-	 * only positive offsets are applied.
-	 *
-	 * Sheet geometry uses allowNegativeOffset = true, which enables:
-	 * - negative outer-contour offset: the sheet contracts;
-	 * - positive hole offset: a hole expands.
-	 */
-	  var shouldOffset = allowNegativeOffset
-		? !GeometryUtil.almostEqual(offset, 0)
-		: offset > 0;
+      /*
+       * Regular parts preserve the original behavior: only positive offsets
+       * are applied. Sheets allow negative offsets so their outer contour can
+       * contract when partToSheet is greater than spacing / 2.
+       */
+      var shouldOffset = allowNegativeOffset
+        ? !GeometryUtil.almostEqual(offset, 0)
+        : offset > 0;
 
-	  if (shouldOffset) {
-		offsetpaths = offsetFunction(simple, offset);
-	  }
+      if (shouldOffset) {
+        offsetpaths = offsetFunction(simple, offset);
+      }
 
-		/*
-		 * If a contour disappears after contraction, for example because partToSheet
-		 * is larger than the usable sheet size, do not silently retain the original
-		 * geometry.
-		 */
-	  if (!offsetpaths || offsetpaths.length === 0) {
-		t.length = 0;
+      /*
+       * A contour can disappear after a contraction. For example, this occurs
+       * when a requested clearance is larger than the available sheet area.
+       */
+      if (!offsetpaths || offsetpaths.length === 0) {
+        t.length = 0;
+        t.children = [];
+        return;
+      }
 
-		if (t.children) {
-		  t.children = [];
-		}
+      /*
+       * Replace the current contour points while preserving the same array
+       * object, because the remaining code keeps references to this tree.
+       */
+      Array.prototype.splice.apply(
+        t,
+        [0, t.length].concat(offsetpaths[0])
+      );
 
-		return;
-	  }
+      /*
+       * simplifyPolygon may return child contours. Preserve them before
+       * recursively processing the tree.
+       */
+      if (simple.children && simple.children.length > 0) {
+        t.children = [];
 
-	  Array.prototype.splice.apply(
-		t,
-		[0, t.length].concat(offsetpaths[0])
-	  );
+        for (var childIndex = 0; childIndex < simple.children.length; childIndex++) {
+          t.children.push(simple.children[childIndex]);
+        }
+      }
 
-	  if (simple.children && simple.children.length > 0) {
-		if (!t.children) {
-		  t.children = [];
-		}
+      if (t.children && t.children.length > 0) {
+        /*
+         * If childOffset is provided, it applies to the immediate children
+         * of the sheet: its internal holes.
+         *
+         * For deeper tree levels, the sign is inverted again. This preserves
+         * the standard alternating outer-contour / hole-contour behavior.
+         */
+        var nextOffset =
+          typeof childOffset === "number"
+            ? childOffset
+            : -offset;
 
-		for (var i = 0; i < simple.children.length; i++) {
-		  t.children.push(simple.children[i]);
-		}
-	  }
+        var nextChildOffset =
+          typeof childOffset === "number"
+            ? -childOffset
+            : undefined;
 
-	  if (t.children && t.children.length > 0) {
-		for (var j = 0; j < t.children.length; j++) {
-		  offsetTree(
-			t.children[j],
-			-offset,
-			offsetFunction,
-			simpleFunction,
-			!inside,
-			allowNegativeOffset
-		  );
-		}
-	  }
-	}
+        for (var childIndex = 0; childIndex < t.children.length; childIndex++) {
+          offsetTree(
+            t.children[childIndex],
+            nextOffset,
+            offsetFunction,
+            simpleFunction,
+            !inside,
+            allowNegativeOffset,
+            nextChildOffset
+          );
+        }
+      }
+    }
 
     var self = this;
     this.working = true;

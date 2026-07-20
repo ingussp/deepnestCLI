@@ -1,13 +1,14 @@
 {
   "settings": {
     "units": "mm",
-    "spacing": 10,
+    "spacing": 0,
 	"partToSheet": 0,
+	"partToHole": 10,
     "curveTolerance": 0.25399,
-    "rotations": 1,
+    "rotations": 32,
     "placementType": "convexhull",
     "simplify": false,
-    "threads": 3,
+    "threads": 12,
 
     "useSvgPreProcessor": false,
     "scale": 2.83464,

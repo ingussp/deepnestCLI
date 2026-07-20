@@ -241,7 +241,7 @@
               <i><span class="unit-label">inch</span></i>
             </dd>
 			
-			<dt>Distance from sheet edge and holes</dt>
+			<dt>Distance from sheet edge</dt>
 			<dd>
 			  <input
 				type="number"
@@ -251,6 +251,19 @@
 				data-config="partToSheet"
 				data-conversion="true"
 				required
+			  />
+			  <i><span class="unit-label">inch</span></i>
+			</dd>
+			
+			<dt>Distance from internal sheet holes</dt>
+			<dd>
+			  <input
+				type="number"
+				min="0"
+				step="any"
+				placeholder="Same as sheet edge"
+				data-config="partToHole"
+				data-conversion="true"
 			  />
 			  <i><span class="unit-label">inch</span></i>
 			</dd>

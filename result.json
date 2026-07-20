@@ -1,12 +1,12 @@
 {
   "success": true,
-  "generatedAt": "2026-07-16T02:14:46.698Z",
+  "generatedAt": "2026-07-20T17:39:09.526Z",
   "inputPath": "C:\\dev\\deepnestCLI\\input.json",
-  "fitness": 8421730156.4688015,
-  "area": 486660.78549364634,
-  "totalarea": 800845.1138161526,
-  "mergedLength": 2221.6297190605624,
-  "utilisation": 60.768402915593924,
+  "fitness": 10878544330.916634,
+  "area": 273746.69184017624,
+  "totalarea": 405212.0027515948,
+  "mergedLength": 110.0733557877146,
+  "utilisation": 67.55641244121534,
   "index": 6,
   "placements": [
     {
@@ -17,19 +17,9 @@
           "id": 0,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": -0.9270991198756064,
-          "y": 93.63716767853957,
-          "rotation": 270,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 1,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 116.27481099999999,
-          "y": -0.9270991000000066,
-          "rotation": 0,
+          "x": 123.14140255977568,
+          "y": 89.8366551339654,
+          "rotation": 135,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -37,18 +27,18 @@
           "id": 2,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 93.63716690000003,
-          "y": 210.8390776,
-          "rotation": 180,
+          "x": 135.8247410998591,
+          "y": -46.48220204288229,
+          "rotation": 33.75,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
-          "id": 4,
+          "id": 1,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 210.839077,
-          "y": 116.2748108,
+          "x": 195.4980342,
+          "y": 59.8252461,
           "rotation": 90,
           "mergedLength": 0,
           "mergedSegments": []
@@ -57,43 +47,41 @@
           "id": 3,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 153.4080927,
-          "y": 203.36985150000004,
-          "rotation": 270,
-          "mergedLength": 38.50760770105547,
-          "mergedSegments": [
-            [
-              {
-                "x": 172.78317877871135,
-                "y": 142.9858892118104
-              },
-              {
-                "x": 191.4639909,
-                "y": 176.65877310000002
-              }
-            ]
-          ]
+          "x": 298.03422888514643,
+          "y": 86.65750563405327,
+          "rotation": 101.25,
+          "mergedLength": 0,
+          "mergedSegments": []
         },
         {
           "id": 5,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 6.542126699999997,
-          "y": 153.40809309999997,
-          "rotation": 0,
-          "mergedLength": 38.507607166807674,
-          "mergedSegments": [
-            [
-              {
-                "x": 66.92608852101796,
-                "y": 172.78317943788565
-              },
-              {
-                "x": 33.2532051,
-                "y": 191.46399129999998
-              }
-            ]
-          ]
+          "x": 4.313588292742608,
+          "y": 146.4577772220255,
+          "rotation": 337.5,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 4,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 163.86833169985908,
+          "y": 114.4211826571177,
+          "rotation": 33.75,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 16,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 196.3292689319857,
+          "y": 164.87543872925903,
+          "rotation": 22.5,
+          "mergedLength": 0,
+          "mergedSegments": []
         }
       ]
     },
@@ -102,22 +90,22 @@
       "sheetId": "0001-0000",
       "parts": [
         {
-          "id": 7,
+          "id": 6,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 100.01316820000002,
-          "y": 843.3919721999999,
-          "rotation": 180,
+          "x": 120.39779863929735,
+          "y": 105.89251519508369,
+          "rotation": 146.25,
           "mergedLength": 0,
           "mergedSegments": []
         },
         {
-          "id": 6,
+          "id": 7,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": -0.9270952000000108,
-          "y": 624.9531092,
-          "rotation": 0,
+          "x": 180.94259728514643,
+          "y": 24.057459334053263,
+          "rotation": 101.25,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -125,9 +113,9 @@
           "id": 8,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 7.004114399999992,
-          "y": 537.4379238,
-          "rotation": 0,
+          "x": 160.6988799998591,
+          "y": 69.2323440571177,
+          "rotation": 33.75,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -135,30 +123,9 @@
           "id": 9,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 127.35236070000002,
-          "y": 576.4209222,
-          "rotation": 180,
-          "mergedLength": 76.53528007845016,
-          "mergedSegments": [
-            [
-              {
-                "x": 100.64128230000001,
-                "y": 538.365024
-              },
-              {
-                "x": 33.715192800000025,
-                "y": 575.4938219999999
-              }
-            ]
-          ]
-        },
-        {
-          "id": 10,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 127.975315,
-          "y": 354.8648943,
-          "rotation": 90,
+          "x": 263.74229777825076,
+          "y": 16.954922578960534,
+          "rotation": 78.75,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -166,9 +133,19 @@
           "id": 11,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 127.975315,
-          "y": 281.4219503,
-          "rotation": 90,
+          "x": 260.04021861062415,
+          "y": 242.81708699341883,
+          "rotation": 225,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 10,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 347.4166522001409,
+          "y": 175.4167815428823,
+          "rotation": 213.75,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -176,9 +153,9 @@
           "id": 12,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 127.975315,
-          "y": 207.97900629999998,
-          "rotation": 90,
+          "x": 309.3783467950837,
+          "y": -43.352170939297324,
+          "rotation": 56.25,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -186,9 +163,9 @@
           "id": 13,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 127.975315,
-          "y": 134.53606229999997,
-          "rotation": 90,
+          "x": -14.347335885146464,
+          "y": 237.8331886659467,
+          "rotation": 281.25,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -196,40 +173,9 @@
           "id": 14,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 127.975315,
-          "y": 61.0931183,
-          "rotation": 90,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 16,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 186.05492250000003,
-          "y": 630.0328293,
-          "rotation": 180,
-          "mergedLength": 84.63510150739188,
-          "mergedSegments": [
-            [
-              {
-                "x": 100.34896420000001,
-                "y": 541.5905437
-              },
-              {
-                "x": 92.71007270104671,
-                "y": 625.8802094000948
-              }
-            ]
-          ]
-        },
-        {
-          "id": 17,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 214.9641095,
-          "y": 439.116347,
-          "rotation": 180,
+          "x": 397.6010939049164,
+          "y": 207.30610753929733,
+          "rotation": 236.25,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -237,40 +183,39 @@
           "id": 15,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 83.2199904,
-          "y": 244.4794682,
-          "rotation": 270,
-          "mergedLength": 107.71346312711044,
-          "mergedSegments": [
-            [
-              {
-                "x": 89.91941677200134,
-                "y": 161.2471407155329
-              },
-              {
-                "x": 121.2758886,
-                "y": 217.7683898
-              }
-            ],
-            [
-              {
-                "x": 127.04821479873176,
-                "y": 154.73028621399402
-              },
-              {
-                "x": 84.14709059999998,
-                "y": 150.84230030000003
-              }
-            ]
-          ]
+          "x": 417.56087730491646,
+          "y": 120.39779763929734,
+          "rotation": 236.25,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 17,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 637.8451734428822,
+          "y": 70.32841629985911,
+          "rotation": 123.75,
+          "mergedLength": 0,
+          "mergedSegments": []
         },
         {
           "id": 18,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 220.68538270000002,
-          "y": 155.6573864,
-          "rotation": 180,
+          "x": 462.823942629259,
+          "y": 186.77075126801424,
+          "rotation": 292.5,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 20,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 556.873604,
+          "y": 158.38702669999998,
+          "rotation": 90,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -278,93 +223,39 @@
           "id": 19,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 250.31374879999998,
-          "y": 217.14596919999997,
-          "rotation": 90,
-          "mergedLength": 92.43775608344563,
-          "mergedSegments": [
-            [
-              {
-                "x": 211.1953066894369,
-                "y": 243.55236803683786
-              },
-              {
-                "x": 122.33843249999998,
-                "y": 218.07306939999998
-              }
-            ]
-          ]
-        },
-        {
-          "id": 20,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 288.9703379,
-          "y": 134.97040879999997,
-          "rotation": 90,
-          "mergedLength": 68.30224572387965,
-          "mergedSegments": [
-            [
-              {
-                "x": 171.6622759881675,
-                "y": 158.77350990551759
-              },
-              {
-                "x": 200.5280523,
-                "y": 220.6763671
-              }
-            ]
-          ]
-        },
-        {
-          "id": 21,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 185.69386479999997,
-          "y": 15.270313699999988,
-          "rotation": 0,
-          "mergedLength": 66.86553367545596,
-          "mergedSegments": [
-            [
-              {
-                "x": 212.40494319999996,
-                "y": 53.32621189999999
-              },
-              {
-                "x": 193.9743043224127,
-                "y": 117.60148820642675
-              }
-            ]
-          ]
+          "x": 842.5302710659467,
+          "y": 326.9566096851464,
+          "rotation": 191.25,
+          "mergedLength": 0,
+          "mergedSegments": []
         },
         {
           "id": 22,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 362.9221619,
-          "y": 127.975315,
-          "rotation": 180,
-          "mergedLength": 64.44259053351101,
-          "mergedSegments": [
-            [
-              {
-                "x": 277.2162036,
-                "y": 39.53302940000002
-              },
-              {
-                "x": 271.39982306486263,
-                "y": 103.71259929681561
-              }
-            ]
-          ]
+          "x": 924.2327383392974,
+          "y": 367.84108589508367,
+          "rotation": 146.25,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 21,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 946.4364817106241,
+          "y": 417.9056781934188,
+          "rotation": 225,
+          "mergedLength": 0,
+          "mergedSegments": []
         },
         {
           "id": 23,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 363.508656,
-          "y": 119.51031489999998,
-          "rotation": 90,
+          "x": 691.5968578893759,
+          "y": 155.46227280658118,
+          "rotation": 45,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -372,9 +263,19 @@
           "id": 24,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 339.33907380000005,
-          "y": 352.3687189,
-          "rotation": 180,
+          "x": 867.9323799217493,
+          "y": 324.3709141210395,
+          "rotation": 258.75,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 26,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 1021.2633890659467,
+          "y": 475.5718046851464,
+          "rotation": 191.25,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -382,30 +283,9 @@
           "id": 25,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 4.044142500000007,
-          "y": 100.80328970000002,
-          "rotation": 270,
-          "mergedLength": 49.74646996725561,
-          "mergedSegments": [
-            [
-              {
-                "x": 42.100040699999994,
-                "y": 74.0922113
-              },
-              {
-                "x": 89.9194167919371,
-                "y": 87.80419672811864
-              }
-            ]
-          ]
-        },
-        {
-          "id": 26,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 426.8541789,
-          "y": 161.1438592,
-          "rotation": 180,
+          "x": 968.8355996217492,
+          "y": 333.5184684210395,
+          "rotation": 258.75,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -413,40 +293,9 @@
           "id": 27,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 332.28991080000003,
-          "y": 253.85392690000003,
-          "rotation": 270,
-          "mergedLength": 60.53047177499187,
-          "mergedSegments": [
-            [
-              {
-                "x": 333.21701099999996,
-                "y": 160.21675900000002
-              },
-              {
-                "x": 362.58155578346094,
-                "y": 213.1474828091754
-              }
-            ]
-          ]
-        },
-        {
-          "id": 29,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 498.4369181,
-          "y": 167.6311643,
-          "rotation": 180,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 30,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 541.3515088,
-          "y": 226.93846449999998,
-          "rotation": 180,
+          "x": 988.2785223049165,
+          "y": 562.0912907392974,
+          "rotation": 236.25,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -454,50 +303,50 @@
           "id": 28,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 462.9382821,
-          "y": 216.06988129999996,
-          "rotation": 90,
-          "mergedLength": 56.73436810018129,
+          "x": 930.4010212659467,
+          "y": 497.8056845851464,
+          "rotation": 191.25,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 29,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 840.1917821340533,
+          "y": 429.61213831485355,
+          "rotation": 11.25,
+          "mergedLength": 55.300786213789316,
           "mergedSegments": [
             [
               {
-                "x": 424.8823839,
-                "y": 242.78095969999998
+                "x": 911.6275261773584,
+                "y": 455.26994689718515
               },
               {
-                "x": 370.3458089971629,
-                "y": 227.14284850989412
+                "x": 858.965277218019,
+                "y": 472.1478759883914
               }
             ]
           ]
         },
         {
+          "id": 30,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 1001.4604861392974,
+          "y": 601.7347451950836,
+          "rotation": 146.25,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
           "id": 31,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 291.7169104,
-          "y": 575.7130539999999,
-          "rotation": 90,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 32,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 194.7652266,
-          "y": 851.319095,
-          "rotation": 180,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 34,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 475.23607660000005,
-          "y": 94.81487250000002,
-          "rotation": 270,
+          "x": 751.7666564571177,
+          "y": 623.301557700141,
+          "rotation": 303.75,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -505,30 +354,50 @@
           "id": 33,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 428.00878550000004,
-          "y": 343.7247208,
-          "rotation": 270,
-          "mergedLength": 68.17961247897676,
+          "x": 873.0081214851464,
+          "y": 641.5253011340533,
+          "rotation": 101.25,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 32,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 818.5220677607026,
+          "y": 656.1347158049164,
+          "rotation": 326.25,
+          "mergedLength": 54.77256957392529,
           "mergedSegments": [
             [
               {
-                "x": 428.9358857,
-                "y": 250.0875529
+                "x": 923.0889572091058,
+                "y": 652.9859127217297
               },
               {
-                "x": 462.0111819144445,
-                "y": 309.7070491919866
+                "x": 896.8935967257705,
+                "y": 604.8835482592774
               }
             ]
           ]
         },
         {
+          "id": 34,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 646.1634329217493,
+          "y": 736.8712218210395,
+          "rotation": 258.75,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
           "id": 35,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 527.2241423,
-          "y": 462.2603095,
-          "rotation": 180,
+          "x": 889.995043170741,
+          "y": 756.9966310319858,
+          "rotation": 112.5,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -536,9 +405,9 @@
           "id": 36,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 618.4414251,
-          "y": 201.36673079999997,
-          "rotation": 90,
+          "x": 679.8417834340532,
+          "y": 691.8181984148536,
+          "rotation": 11.25,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -546,30 +415,9 @@
           "id": 37,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 199.98631310000002,
-          "y": 754.8421915,
-          "rotation": 270,
-          "mergedLength": 85.50295181677222,
-          "mergedSegments": [
-            [
-              {
-                "x": 288.4285987,
-                "y": 669.1362332
-              },
-              {
-                "x": 203.27462479736812,
-                "y": 661.4190123290413
-              }
-            ]
-          ]
-        },
-        {
-          "id": 38,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 296.07572619999996,
-          "y": 559.5484076,
-          "rotation": 0,
+          "x": 482.9547643571177,
+          "y": 678.464253900141,
+          "rotation": 303.75,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -577,9 +425,19 @@
           "id": 39,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 400.7456689,
-          "y": 463.4082595,
-          "rotation": 0,
+          "x": 725.6713484428823,
+          "y": 706.9836481998591,
+          "rotation": 123.75,
+          "mergedLength": 0,
+          "mergedSegments": []
+        },
+        {
+          "id": 38,
+          "source": 2,
+          "filename": "irregular_romb.svg",
+          "x": 532.5228678000001,
+          "y": 779.2802723,
+          "rotation": 180,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -587,50 +445,19 @@
           "id": 40,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 491.06729099999995,
-          "y": 325.9372372,
-          "rotation": 0,
-          "mergedLength": 62.63775634163669,
-          "mergedSegments": [
-            [
-              {
-                "x": 517.7783694,
-                "y": 363.9931354
-              },
-              {
-                "x": 500.5130638864246,
-                "y": 424.2044112961073
-              }
-            ]
-          ]
+          "x": 606.6798631950837,
+          "y": 705.4405003607026,
+          "rotation": 56.25,
+          "mergedLength": 0,
+          "mergedSegments": []
         },
         {
           "id": 41,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 368.7778681,
-          "y": 562.1318914,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 43,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 486.64555799999994,
-          "y": 411.5054592,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 42,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 190.4534241,
-          "y": 825.5516236,
-          "rotation": 270,
+          "x": 361.54430949985914,
+          "y": 725.5602932571178,
+          "rotation": 33.75,
           "mergedLength": 0,
           "mergedSegments": []
         },
@@ -638,532 +465,29 @@
           "id": 44,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 296.0757262,
-          "y": 781.1608918000001,
-          "rotation": 270,
+          "x": 460.23563700491644,
+          "y": 893.7441671392974,
+          "rotation": 236.25,
           "mergedLength": 0,
           "mergedSegments": []
-        },
-        {
-          "id": 45,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 406.871026,
-          "y": 738.9185651,
-          "rotation": 90,
-          "mergedLength": 144.58636855197912,
-          "mergedSegments": [
-            [
-              {
-                "x": 318.4287404,
-                "y": 824.6245234
-              },
-              {
-                "x": 278.8957097,
-                "y": 739.8456653000001
-              }
-            ],
-            [
-              {
-                "x": 327.96162938530586,
-                "y": 753.9150913512444
-              },
-              {
-                "x": 278.8957097,
-                "y": 739.8456653000001
-              }
-            ]
-          ]
         },
         {
           "id": 46,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 548.1209943,
-          "y": 651.5012772,
-          "rotation": 180,
-          "mergedLength": 87.87384002827858,
-          "mergedSegments": [
-            [
-              {
-                "x": 454.4838264,
-                "y": 650.574177
-              },
-              {
-                "x": 462.415036,
-                "y": 563.0589916
-              }
-            ]
-          ]
-        },
-        {
-          "id": 47,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 409.3568775,
-          "y": 622.7349094,
-          "rotation": 0,
-          "mergedLength": 55.47527468695924,
-          "mergedSegments": [
-            [
-              {
-                "x": 502.9940454,
-                "y": 623.6620096
-              },
-              {
-                "x": 454.4838263881811,
-                "y": 650.574176978696
-              }
-            ]
-          ]
-        },
-        {
-          "id": 48,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 513.1581504000001,
-          "y": 831.1468414999999,
-          "rotation": 180,
-          "mergedLength": 74.60009133270006,
-          "mergedSegments": [
-            [
-              {
-                "x": 495.0628358134169,
-                "y": 711.1771950287726
-              },
-              {
-                "x": 427.45219210000005,
-                "y": 742.7045559
-              }
-            ]
-          ]
+          "x": 962.2865989851464,
+          "y": 758.3744424340532,
+          "rotation": 101.25,
+          "mergedLength": 0,
+          "mergedSegments": []
         },
         {
           "id": 49,
           "source": 2,
           "filename": "irregular_romb.svg",
-          "x": 588.7000037,
-          "y": 712.1042952,
-          "rotation": 180,
-          "mergedLength": 87.87384002827858,
-          "mergedSegments": [
-            [
-              {
-                "x": 495.0628358,
-                "y": 711.177195
-              },
-              {
-                "x": 502.9940454,
-                "y": 623.6620096
-              }
-            ]
-          ]
-        },
-        {
-          "id": 50,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 598.0819385,
-          "y": 790.0146128,
-          "rotation": 180,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 51,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 670.4104172,
-          "y": 415.306623,
-          "rotation": 180,
-          "mergedLength": 87.87384002827864,
-          "mergedSegments": [
-            [
-              {
-                "x": 576.7732493,
-                "y": 414.3795228
-              },
-              {
-                "x": 584.7044589,
-                "y": 326.8643374
-              }
-            ]
-          ]
-        },
-        {
-          "id": 52,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 673.6237918,
-          "y": 670.9720665,
-          "rotation": 180,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 53,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 695.2689962,
-          "y": 190.0331036,
-          "rotation": 90,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 54,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 794.5792613,
-          "y": 280.2293732,
-          "rotation": 90,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 55,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 647.5161495,
-          "y": 454.3439093,
-          "rotation": 270,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 56,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 763.2796721,
-          "y": 577.6246082,
-          "rotation": 180,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 57,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 659.8748327,
-          "y": 316.8503631,
-          "rotation": 270,
-          "mergedLength": 130.0913337139703,
-          "mergedSegments": [
-            [
-              {
-                "x": 697.9307309,
-                "y": 290.13928469999996
-              },
-              {
-                "x": 756.5233630991854,
-                "y": 306.94045160284065
-              }
-            ],
-            [
-              {
-                "x": 660.8019328999999,
-                "y": 223.21319519999997
-              },
-              {
-                "x": 694.3418960154927,
-                "y": 283.670271491405
-              }
-            ]
-          ]
-        },
-        {
-          "id": 58,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 863.9337514,
-          "y": 367.7108508,
-          "rotation": 90,
-          "mergedLength": 93.54311998788093,
-          "mergedSegments": [
-            [
-              {
-                "x": 775.4914658,
-                "y": 453.4168091
-              },
-              {
-                "x": 735.9584351,
-                "y": 368.637951
-              }
-            ]
-          ]
-        },
-        {
-          "id": 59,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 755.3484625,
-          "y": 665.1397936,
-          "rotation": 180,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 60,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 890.3278882,
-          "y": 448.72219169999994,
-          "rotation": 90,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 61,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 873.5976596,
-          "y": 517.3678198,
-          "rotation": 90,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 62,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 786.3233446,
-          "y": 731.0709237,
-          "rotation": 180,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 63,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 570.961653,
-          "y": 622.1772904000001,
-          "rotation": 0,
-          "mergedLength": 147.9740433079728,
-          "mergedSegments": [
-            [
-              {
-                "x": 597.1548382945491,
-                "y": 662.039296498437
-              },
-              {
-                "x": 571.8887532,
-                "y": 750.1526067000001
-              }
-            ],
-            [
-              {
-                "x": 646.9127134017082,
-                "y": 632.916168303079
-              },
-              {
-                "x": 597.6727314,
-                "y": 660.2331886000001
-              }
-            ]
-          ]
-        },
-        {
-          "id": 64,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 857.9060838,
-          "y": 737.5582287999999,
-          "rotation": 180,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 65,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 772.4311848,
-          "y": 715.386905,
-          "rotation": 90,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 66,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 574.6821666,
-          "y": 842.0548706000001,
-          "rotation": 270,
-          "mergedLength": 49.369487537407196,
-          "mergedSegments": [
-            [
-              {
-                "x": 683.9888991706852,
-                "y": 801.0928633136697
-              },
-              {
-                "x": 663.1244522,
-                "y": 756.3489123
-              }
-            ]
-          ]
-        },
-        {
-          "id": 67,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 864.5011134,
-          "y": 817.0146466,
-          "rotation": 180,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 68,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 949.2799715,
-          "y": 777.4816159,
-          "rotation": 180,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 69,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 974.5124633,
-          "y": 425.1019528,
-          "rotation": 90,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 70,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 886.2898771,
-          "y": 385.8218727,
-          "rotation": 180,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 72,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 520.4828157,
-          "y": 485.47006269999997,
-          "rotation": 0,
-          "mergedLength": 93.54311991408395,
-          "mergedSegments": [
-            [
-              {
-                "x": 521.4099159,
-                "y": 613.445379
-              },
-              {
-                "x": 547.1938941,
-                "y": 523.5259609
-              }
-            ]
-          ]
-        },
-        {
-          "id": 71,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 847.3177905,
-          "y": 568.2121012,
-          "rotation": 0,
-          "mergedLength": 76.62930471045723,
-          "mergedSegments": [
-            [
-              {
-                "x": 863.5740132000843,
-                "y": 689.0393303001808
-              },
-              {
-                "x": 933.0237488,
-                "y": 656.6543868
-              }
-            ]
-          ]
-        },
-        {
-          "id": 73,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 977.3823035,
-          "y": 352.4819223,
-          "rotation": 90,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 74,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 871.2955218,
-          "y": 397.3088904,
-          "rotation": 270,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 75,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 972.6582627999999,
-          "y": 390.7638043,
-          "rotation": 0,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 76,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 954.3598939,
-          "y": 397.21733750000004,
-          "rotation": 270,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 77,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 860.0188259,
-          "y": 307.4714096,
-          "rotation": 270,
-          "mergedLength": 0,
-          "mergedSegments": []
-        },
-        {
-          "id": 78,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 1066.8743174,
-          "y": 200.33233909999996,
-          "rotation": 90,
-          "mergedLength": 70.91723915539325,
-          "mergedSegments": [
-            [
-              {
-                "x": 948.4611115115532,
-                "y": 221.76545129461266
-              },
-              {
-                "x": 978.4320318000001,
-                "y": 286.0382974
-              }
-            ]
-          ]
-        },
-        {
-          "id": 79,
-          "source": 2,
-          "filename": "irregular_romb.svg",
-          "x": 864.4711535,
-          "y": 718.7822966,
-          "rotation": 0,
+          "x": -34.385432739297315,
+          "y": 278.44720830491633,
+          "rotation": 326.25,
           "mergedLength": 0,
           "mergedSegments": []
         }

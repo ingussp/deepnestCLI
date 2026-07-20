@@ -154,6 +154,7 @@ interface CliSettingsInput {
   units?: "inch" | "mm";
   spacing?: number;
   partToSheet?: number;
+  partToHole?: number;
   curveTolerance?: number;
   rotations?: number;
   placementType?: "gravity" | "box" | "convexhull";
@@ -340,6 +341,7 @@ function normalizeCliSettingsForInternalConfig(
     key:
       | "spacing"
 	  | "partToSheet"
+	  | "partToHole"
       | "curveTolerance"
       | "endpointTolerance"
       | "exportWithSheetsSpaceValue"
@@ -352,6 +354,7 @@ function normalizeCliSettingsForInternalConfig(
 
   convertDistanceSetting("spacing");
   convertDistanceSetting("partToSheet");
+  convertDistanceSetting("partToHole");
   convertDistanceSetting("curveTolerance");
   convertDistanceSetting("endpointTolerance");
   convertDistanceSetting("exportWithSheetsSpaceValue");
@@ -374,6 +377,7 @@ function applyCliSettings(settings: CliSettingsInput): void {
     "units",
     "spacing",
 	"partToSheet",
+	"partToHole",
     "curveTolerance",
     "rotations",
     "placementType",
@@ -961,6 +965,11 @@ function updateForm(c: UIConfig): void {
     }
 
     const value = c[key];
+	
+	if (key === "partToHole" && value === null) {
+	  inputElement.value = "";
+	  return;
+	}
 
     if (inputElement.getAttribute("data-conversion") === "true") {
       const scaleValue = scaleInput ? Number(scaleInput.value) : c.scale;
@@ -1159,7 +1168,7 @@ function initializeConfigForm(): void {
     }
 
     inputElement.addEventListener("change", () => {
-      let val: string | number | boolean = inputElement.value;
+      let val: string | number | boolean | null = inputElement.value;
       const key = inputElement.getAttribute("data-config") as keyof UIConfig | null;
 
       if (!key) {
@@ -1180,12 +1189,19 @@ function initializeConfigForm(): void {
 
       // Handle unit conversion
       if (inputElement.getAttribute("data-conversion") === "true") {
-        let conversion = configService.getSync("scale");
-        if (configService.getSync("units") === "mm") {
-          conversion /= 25.4;
-        }
-        val = Number(val) * conversion;
-      }
+	  if (key === "partToHole" && inputElement.value.trim() === "") {
+		// An empty partToHole value means: use partToSheet.
+		val = null;
+	  } else {
+		let conversion = configService.getSync("scale");
+
+		if (configService.getSync("units") === "mm") {
+		  conversion /= 25.4;
+		}
+
+		val = Number(val) * conversion;
+	  }
+	}
 
       // Show spinner during save
       if (inputElement.parentNode) {

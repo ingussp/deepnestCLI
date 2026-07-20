@@ -162,6 +162,12 @@ Top-level structure:
   - A value of `0` allows parts to use the complete working sheet area while
     still accounting for the `spacing` compensation.
 
+- `partToHole`: `number` *(optional)*
+  - Minimum real distance between a part and an internal sheet-hole boundary.
+  - Uses the same unit system as `spacing`.
+  - When omitted, `partToSheet` is used for internal sheet holes as well.
+  - Set this to `0` when parts may approach internal holes without additional clearance.
+
 - `curveTolerance`: `number`
   - Tolerance used when approximating curved geometry.
   - Lower = more precise, slower.

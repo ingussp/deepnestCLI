@@ -30,6 +30,8 @@ export type DeepNestConfig = {
   spacing: number;
   /** Minimum distance between a part and a sheet outer edge or hole, in SVG units */
   partToSheet: number;
+  /** Minimum distance from a part to an internal sheet hole, in SVG units. */
+  partToHole: number | null;
   /** Tolerance for curve approximation in polygonification */
   curveTolerance: number;
   /** Scale factor for Clipper.js integer operations */
