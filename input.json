@@ -3,12 +3,11 @@
     "units": "mm",
     "spacing": 0,
 	"partToSheet": 0,
-	"partToHole": 10,
+	"partToHole": 0,
     "curveTolerance": 0.25399,
-    "rotations": 32,
-    "placementType": "convexhull",
+    "placementType": "gravity",
     "simplify": false,
-    "threads": 12,
+    "threads": 8,
 
     "useSvgPreProcessor": false,
     "scale": 2.83464,
@@ -120,7 +119,13 @@
   "parts": [
     {
       "path": "tests/assets/irregular_romb.svg",
-      "quantity": 200
+      "quantity": 100,
+	  "rotations": 32
+    },
+    {
+      "path": "tests/assets/star.svg",
+      "quantity": 10,
+      "rotations": 2
     }
   ],
   "autoStart": true,

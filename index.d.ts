@@ -36,8 +36,6 @@ export type DeepNestConfig = {
   curveTolerance: number;
   /** Scale factor for Clipper.js integer operations */
   clipperScale: number;
-  /** Number of rotation angles to try (e.g., 4 = 0, 90, 180, 270) */
-  rotations: number;
   /** Number of worker threads for parallel computation */
   threads: number;
   /** Genetic algorithm population size */
@@ -161,6 +159,8 @@ export type Part = {
   area: number;
   /** Number of copies to nest */
   quantity: number;
+  /** Number of allowed rotation steps for this part */
+  rotations?: number;
   /** Source filename or null for programmatically created parts */
   filename: string | null;
   /** True if this part is a sheet (bin) rather than a piece to nest */

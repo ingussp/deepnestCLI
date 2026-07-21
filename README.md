@@ -173,9 +173,13 @@ Top-level structure:
   - Lower = more precise, slower.
   - Higher = faster, less precise.
 
-- `rotations`: `integer` (recommended `1..32`)
-  - Number of allowed rotation steps.
-  - Example: `1` = fixed orientation, `4` = 0/90/180/270.
+- `rotations`: `integer` (optional, recommended `1..32`)
+  - Number of allowed rotation positions for this part.
+  - `1` = no rotation.
+  - `2` = `0°` and `180°`.
+  - `4` = `0°`, `90°`, `180°`, and `270°`.
+  - `8` = 45-degree increments.
+  - If omitted, the default is `1`.
 
 - `placementType`: `"gravity"` | `"box"` | `"convexhull"`
   - `gravity`: general purpose strategy.

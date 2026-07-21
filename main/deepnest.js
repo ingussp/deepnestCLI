@@ -14,7 +14,6 @@ var config = {
   spacing: 0,
   partToSheet: 0,
   partToHole: null,
-  rotations: 4,
   populationSize: 10,
   mutationRate: 10,
   threads: 4,
@@ -540,10 +539,6 @@ export class DeepNest {
 	  }
 	}
 
-    if (c.rotations && parseInt(c.rotations) > 0) {
-      config.rotations = parseInt(c.rotations);
-    }
-
     if (c.populationSize && parseInt(c.populationSize) > 2) {
       config.populationSize = parseInt(c.populationSize);
     }
@@ -1000,22 +995,35 @@ export class DeepNest {
     return parts;
   };
 
-  cloneTree(tree) {
-    var newtree = [];
-    tree.forEach(function (t) {
-      newtree.push({ x: t.x, y: t.y, exact: t.exact });
-    });
+    cloneTree(tree) {
+	  var newtree = [];
 
-    var self = this;
-    if (tree.children && tree.children.length > 0) {
-      newtree.children = [];
-      tree.children.forEach(function (c) {
-        newtree.children.push(self.cloneTree(c));
-      });
-    }
+	  for (var i = 0; i < tree.length; i++) {
+		newtree.push({
+		  x: tree[i].x,
+		  y: tree[i].y,
+		  exact: tree[i].exact,
+		});
+	  }
 
-    return newtree;
-  };
+	  newtree.id = tree.id;
+	  newtree.source = tree.source;
+	  newtree.filename = tree.filename;
+	  newtree.rotation = tree.rotation;
+	  newtree.rotations = tree.rotations;
+
+	  var self = this;
+
+	  if (tree.children && tree.children.length > 0) {
+		newtree.children = [];
+
+		for (var i = 0; i < tree.children.length; i++) {
+		  newtree.children.push(this.cloneTree(tree.children[i]));
+		}
+	  }
+
+	  return newtree;
+	}
 
   // progressCallback is called when progress is made
   // displayCallback is called when a new placement has been made
@@ -1032,11 +1040,12 @@ export class DeepNest {
     // send only bare essentials through ipc
     for (var i = 0; i < this.parts.length; i++) {
       parts.push({
-        quantity: this.parts[i].quantity,
-        sheet: this.parts[i].sheet,
-        polygontree: this.cloneTree(this.parts[i].polygontree),
-        filename: this.parts[i].filename,
-      });
+		  quantity: this.parts[i].quantity,
+		  rotations: this.parts[i].rotations || 1,
+		  sheet: this.parts[i].sheet,
+		  polygontree: this.cloneTree(this.parts[i].polygontree),
+		  filename: this.parts[i].filename,
+	  });
     }
 
         for (var i = 0; i < parts.length; i++) {
@@ -1319,6 +1328,7 @@ export class DeepNest {
             poly.id = id; // id is the unique id of all parts that will be nested, including cloned duplicates
             poly.source = i; // source is the id of each unique part from the main part list
             poly.filename = parts[i].filename;
+			poly.rotations = parts[i].rotations || 1;
 
             adam.push(poly);
             id++;
@@ -1391,16 +1401,19 @@ export class DeepNest {
         var sources = [];
         var children = [];
         var filenames = [];
+		var rotations = [];
 
         for (var j = 0; j < this.GA.population[i].placement.length; j++) {
           var id = this.GA.population[i].placement[j].id;
           var source = this.GA.population[i].placement[j].source;
           var child = this.GA.population[i].placement[j].children;
           var filename = this.GA.population[i].placement[j].filename;
+		  var rotationCount = this.GA.population[i].placement[j].rotations || 1;
           ids[j] = id;
           sources[j] = source;
           children[j] = child;
           filenames[j] = filename;
+		  rotations[j] = rotationCount;
         }
 
         this.eventEmitter.send("background-start", {
@@ -1415,6 +1428,7 @@ export class DeepNest {
           sources: sources,
           children: children,
           filenames: filenames,
+		  rotations: rotations,
         });
         running++;
       }
@@ -1626,15 +1640,16 @@ export class GeneticAlgorithm {
     this.config = config || {
       populationSize: 10,
       mutationRate: 10,
-      rotations: 4,
     };
 
     // population is an array of individuals. Each individual is a object representing the order of insertion and the angle each part is rotated
     var angles = [];
     for (var i = 0; i < adam.length; i++) {
-      var angle =
-        Math.floor(Math.random() * this.config.rotations) *
-        (360 / this.config.rotations);
+		var rotationCount = adam[i].rotations || 1;
+
+		var angle =
+		  Math.floor(Math.random() * rotationCount) *
+		  (360 / rotationCount);
       angles.push(angle);
     }
 
@@ -1659,17 +1674,23 @@ export class GeneticAlgorithm {
         var j = i + 1;
 
         if (j < clone.placement.length) {
-          var temp = clone.placement[i];
-          clone.placement[i] = clone.placement[j];
-          clone.placement[j] = temp;
-        }
+		  var tempPlacement = clone.placement[i];
+		  clone.placement[i] = clone.placement[j];
+		  clone.placement[j] = tempPlacement;
+
+		  var tempRotation = clone.rotation[i];
+		  clone.rotation[i] = clone.rotation[j];
+		  clone.rotation[j] = tempRotation;
+		}
       }
 
       rand = Math.random();
       if (rand < 0.01 * this.config.mutationRate) {
-        clone.rotation[i] =
-          Math.floor(Math.random() * this.config.rotations) *
-          (360 / this.config.rotations);
+        var rotationCount = clone.placement[i].rotations || 1;
+
+		clone.rotation[i] =
+		  Math.floor(Math.random() * rotationCount) *
+		  (360 / rotationCount);
       }
     }
 

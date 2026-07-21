@@ -126,6 +126,7 @@ let sheetDialogService: SheetDialogService;
 interface CliPartInput {
   path: string;
   quantity?: number;
+  rotations?: number;
 }
 
 interface CliPointInput {
@@ -156,7 +157,6 @@ interface CliSettingsInput {
   partToSheet?: number;
   partToHole?: number;
   curveTolerance?: number;
-  rotations?: number;
   placementType?: "gravity" | "box" | "convexhull";
   simplify?: boolean;
   threads?: number;
@@ -221,9 +221,17 @@ function isCliJobInput(value: unknown): value is CliJobInput {
     (Array.isArray(maybeParts) &&
       maybeParts.every(
         (part) =>
-          isObject(part) &&
-          typeof part.path === "string" &&
-          (part.quantity === undefined || typeof part.quantity === "number")
+		  isObject(part) &&
+		  typeof part.path === "string" &&
+		  (part.quantity === undefined ||
+			(typeof part.quantity === "number" &&
+			  Number.isInteger(part.quantity) &&
+			  part.quantity > 0)) &&
+		  (part.rotations === undefined ||
+			(typeof part.rotations === "number" &&
+			  Number.isInteger(part.rotations) &&
+			  part.rotations > 0 &&
+			  part.rotations <= 32))
       ));
 
   const validSheets =
@@ -379,7 +387,6 @@ function applyCliSettings(settings: CliSettingsInput): void {
 	"partToSheet",
 	"partToHole",
     "curveTolerance",
-    "rotations",
     "placementType",
     "simplify",
     "threads",
@@ -620,14 +627,20 @@ function applyCliQuantities(parts: CliPartInput[]): void {
   }
 
   const quantityByFilename = new Map<string, number>();
+  const rotationsByFilename = new Map<string, number>();
 
-  for (const part of parts) {
-    if (typeof part.quantity === "number") {
-      const normalized = part.path.split("\\").join("/");
-      const filename = normalized.substring(normalized.lastIndexOf("/") + 1);
-      quantityByFilename.set(filename, part.quantity);
-    }
-  }
+	for (const part of parts) {
+	  const normalized = part.path.split("\\").join("/");
+	  const filename = normalized.substring(normalized.lastIndexOf("/") + 1);
+
+	  if (typeof part.quantity === "number") {
+		quantityByFilename.set(filename, part.quantity);
+	  }
+
+	  if (typeof part.rotations === "number") {
+		rotationsByFilename.set(filename, part.rotations);
+	  }
+	}
 
   console.log(
     "[cli-input][renderer] quantityByFilename:",
@@ -636,14 +649,17 @@ function applyCliQuantities(parts: CliPartInput[]): void {
 
   for (const deepNestPart of deepNest.parts) {
     const filename = deepNestPart.filename;
-    if (filename && quantityByFilename.has(filename)) {
-      console.log(
-        "[cli-input][renderer] Setting quantity",
-        filename,
-        quantityByFilename.get(filename)
-      );
-      deepNestPart.quantity = quantityByFilename.get(filename) as number;
-    }
+    if (!filename) {
+		continue;
+	}
+
+	if (quantityByFilename.has(filename)) {
+		deepNestPart.quantity = quantityByFilename.get(filename) as number;
+	}
+
+	if (rotationsByFilename.has(filename)) {
+		deepNestPart.rotations = rotationsByFilename.get(filename) as number;
+	}
   }
 
   if (partsViewService) {

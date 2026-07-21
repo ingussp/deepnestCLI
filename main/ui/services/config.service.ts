@@ -29,7 +29,6 @@ export const DEFAULT_CONFIG: Readonly<UIConfig> = {
   partToHole: null,
   curveTolerance: 0.72, // store distances in native units
   clipperScale: 10000000,
-  rotations: 4,
   threads: 4,
   populationSize: 10,
   mutationRate: 10,
@@ -83,7 +82,6 @@ export class ConfigService implements ConfigObject {
   partToHole: number | null;
   curveTolerance: number;
   clipperScale: number;
-  rotations: number;
   threads: number;
   populationSize: number;
   mutationRate: number;
@@ -119,7 +117,6 @@ export class ConfigService implements ConfigObject {
 	this.partToHole = this.config.partToHole;
     this.curveTolerance = this.config.curveTolerance;
     this.clipperScale = this.config.clipperScale;
-    this.rotations = this.config.rotations;
     this.threads = this.config.threads;
     this.populationSize = this.config.populationSize;
     this.mutationRate = this.config.mutationRate;
@@ -204,7 +201,6 @@ export class ConfigService implements ConfigObject {
 	this.partToHole = this.config.partToHole;
     this.curveTolerance = this.config.curveTolerance;
     this.clipperScale = this.config.clipperScale;
-    this.rotations = this.config.rotations;
     this.threads = this.config.threads;
     this.populationSize = this.config.populationSize;
     this.mutationRate = this.config.mutationRate;

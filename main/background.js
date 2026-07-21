@@ -62,9 +62,11 @@ window.onload = function () {
     var sources = data.sources;
     var children = data.children;
     var filenames = data.filenames;
+	var rotationCounts = data.rotations;
 
     for (let i = 0; i < parts.length; i++) {
       parts[i].rotation = rotations[i];
+	    parts[i].rotations = rotationCounts[i] || 1;
       parts[i].id = ids[i];
       parts[i].source = sources[i];
       parts[i].filename = filenames[i];
@@ -219,6 +221,11 @@ window.onload = function () {
 
       function rotatePolygon(polygon, degrees) {
         var rotated = [];
+		  rotated.rotations = polygon.rotations;
+		  rotated.source = polygon.source;
+		  rotated.id = polygon.id;
+		  rotated.filename = polygon.filename;
+		  rotated.rotation = polygon.rotation;
         var angle = degrees * Math.PI / 180;
         for (let i = 0; i < polygon.length; i++) {
           var x = polygon[i].x;
@@ -813,6 +820,11 @@ function getHull(polygon) {
  */
 function rotatePolygon(polygon, degrees) {
   var rotated = [];
+	  rotated.rotations = polygon.rotations;
+	  rotated.source = polygon.source;
+	  rotated.id = polygon.id;
+	  rotated.filename = polygon.filename;
+	  rotated.rotation = polygon.rotation;
   // Convert degrees to radians: multiply by π/180
   // Standard mathematical conversion required for trigonometric functions
   var angle = degrees * Math.PI / 180;
@@ -1158,6 +1170,7 @@ function placeParts(sheets, parts, config, nestindex) {
   for (let i = 0; i < parts.length; i++) {
     var r = rotatePolygon(parts[i], parts[i].rotation);
     r.rotation = parts[i].rotation;
+	r.rotations = parts[i].rotations || 1;
     r.source = parts[i].source;
     r.id = parts[i].id;
     r.filename = parts[i].filename;
@@ -1248,38 +1261,38 @@ function placeParts(sheets, parts, config, nestindex) {
     fitness += sheetarea;
 
     //console.log('new sheet');
+        // Process every part that has not yet been placed on a sheet.
     for (let i = 0; i < parts.length; i++) {
-      // console.time('placement');
       part = parts[i];
 
-      // inner NFP
+      // Find an inner NFP for one of this part's allowed rotations.
       var sheetNfp = null;
-      // try all possible rotations until it fits
-      // (only do this for the first part of each sheet, to ensure that all parts that can be placed are, even if we have to to open a lot of sheets)
-      for (let j = 0; j < config.rotations; j++) {
+      var partRotationCount = part.rotations || 1;
+
+      for (let j = 0; j < partRotationCount; j++) {
         sheetNfp = getInnerNfp(sheet, part, config);
 
         if (sheetNfp) {
           break;
         }
 
-        // Rotate by equal angle steps (360° / number of allowed rotations) to try all configured orientations
-        // This ensures even distribution of rotation attempts across the full circle
-        var r = rotatePolygon(part, 360 / config.rotations);
-        r.rotation = part.rotation + (360 / config.rotations);
+        var rotationStep = 360 / partRotationCount;
+        var r = rotatePolygon(part, rotationStep);
+
+        r.rotation = part.rotation + rotationStep;
+        r.rotations = partRotationCount;
         r.source = part.source;
         r.id = part.id;
-        r.filename = part.filename
+        r.filename = part.filename;
 
-        // rotation is not in-place
         part = r;
         parts[i] = r;
 
-        // Normalize rotation to 0-360° range using modulo to prevent overflow
-        if (part.rotation > 360) {
+        if (part.rotation >= 360) {
           part.rotation = part.rotation % 360;
         }
       }
+	  
       // part unplaceable, skip
       if (!sheetNfp || sheetNfp.length == 0) {
 		  
