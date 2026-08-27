@@ -124,7 +124,8 @@ let sheetDialogService: SheetDialogService;
  * CLI job input types
  */
 interface CliPartInput {
-  path: string;
+  path?: string;
+  points?: CliPointInput[];
   quantity?: number;
   rotations?: number;
 }
@@ -216,23 +217,9 @@ function isCliJobInput(value: unknown): value is CliJobInput {
   const maybeAutoStart = value.autoStart;
   const maybeOutput = value.output;
 
-  const validParts =
-    maybeParts === undefined ||
-    (Array.isArray(maybeParts) &&
-      maybeParts.every(
-        (part) =>
-		  isObject(part) &&
-		  typeof part.path === "string" &&
-		  (part.quantity === undefined ||
-			(typeof part.quantity === "number" &&
-			  Number.isInteger(part.quantity) &&
-			  part.quantity > 0)) &&
-		  (part.rotations === undefined ||
-			(typeof part.rotations === "number" &&
-			  Number.isInteger(part.rotations) &&
-			  part.rotations > 0 &&
-			  part.rotations <= 32))
-      ));
+const validParts =
+  maybeParts === undefined ||
+  (Array.isArray(maybeParts) && maybeParts.every(isCliPartInput));
 
   const validSheets =
 	  maybeSheets === undefined ||
@@ -251,6 +238,38 @@ function isCliJobInput(value: unknown): value is CliJobInput {
         typeof maybeOutput.resultJson === "string"));
 
   return validParts && validSheets && validSettings && validAutoStart && validOutput;
+}
+
+function isCliPartInput(value: unknown): value is CliPartInput {
+  if (!isObject(value)) {
+    return false;
+  }
+
+  const hasPath = typeof value.path === "string" && value.path.trim().length > 0;
+  const hasPoints = isPointArray(value.points);
+
+  if (!hasPath && !hasPoints) {
+    return false; // vajag vismaz vienu no abiem
+  }
+
+  if (
+    value.quantity !== undefined &&
+    !(typeof value.quantity === "number" && Number.isInteger(value.quantity) && value.quantity > 0)
+  ) {
+    return false;
+  }
+
+  if (
+    value.rotations !== undefined &&
+    !(typeof value.rotations === "number" &&
+      Number.isInteger(value.rotations) &&
+      value.rotations > 0 &&
+      value.rotations <= 32)
+  ) {
+    return false;
+  }
+
+  return true;
 }
 
 function isCliPointInput(value: unknown): value is CliPointInput {
@@ -490,6 +509,37 @@ function polygonPointsToPath(points: CliPointInput[], conversion: number): strin
   return d;
 }
 
+function createPolygonPartSvg(points: CliPointInput[]): string {
+  const conversion = getCliSheetConversionFactor();
+  const normalizedOuter = ensureClockwise(points);
+  const d = polygonPointsToPath(normalizedOuter, conversion);
+
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg">`,
+    `<path d="${d}" fill="#000000" stroke="#000000" />`,
+    `</svg>`,
+  ].join("");
+}
+
+function addCliPolygonPart(points: CliPointInput[]): boolean {
+  const deepNest = getDeepNest();
+
+  if (!deepNest || !Array.isArray(deepNest.parts)) {
+    console.warn("[cli-input][renderer] deepNest not available for polygon part");
+    return false;
+  }
+
+  if (!Array.isArray(points) || points.length < 3) {
+    console.warn("[cli-input][renderer] Invalid polygon part points");
+    return false;
+  }
+
+  const svgString = createPolygonPartSvg(points);
+  const importedParts = deepNest.importsvg(null, null, svgString);
+
+  return importedParts.length > 0;
+}
+
 function createPolygonSheetSvg(
   outer: CliPointInput[],
   holes: CliPointInput[][] = []
@@ -601,10 +651,24 @@ function loadCliSheets(sheets: CliSheetInput[]): void {
 async function loadCliParts(parts: CliPartInput[]): Promise<void> {
   console.log("[cli-input][renderer] loadCliParts() start", parts);
 
-  for (const part of parts) {
-    console.log("[cli-input][renderer] Importing:", part.path);
-    await importService.processFile(part.path);
-  }
+	for (const part of parts) {
+	  if (typeof part.path === "string" && part.path.trim().length > 0) {
+		console.log("[cli-input][renderer] Importing file part:", part.path);
+		await importService.processFile(part.path);
+		continue;
+	  }
+
+	  if (Array.isArray(part.points) && part.points.length >= 3) {
+		console.log("[cli-input][renderer] Importing polygon points part");
+		const ok = addCliPolygonPart(part.points);
+		if (!ok) {
+		  console.warn("[cli-input][renderer] Failed to add polygon points part", part);
+		}
+		continue;
+	  }
+
+	  console.warn("[cli-input][renderer] Unsupported part definition", part);
+	}
 
   if (partsViewService) {
     partsViewService.update();
@@ -628,8 +692,18 @@ function applyCliQuantities(parts: CliPartInput[]): void {
 
   const quantityByFilename = new Map<string, number>();
   const rotationsByFilename = new Map<string, number>();
+  const pointDefinedParts = parts.filter(
+	  (p) => (!p.path || p.path.trim().length === 0) && Array.isArray(p.points) && p.points.length >= 3
+	);
+
+	let pointPartCursor = 0;
 
 	for (const part of parts) {
+	  // Parts defined by points[] do not have a file path or filename.
+	  if (typeof part.path !== "string" || part.path.trim().length === 0) {
+		continue;
+	  }
+
 	  const normalized = part.path.split("\\").join("/");
 	  const filename = normalized.substring(normalized.lastIndexOf("/") + 1);
 
@@ -647,20 +721,41 @@ function applyCliQuantities(parts: CliPartInput[]): void {
     Array.from(quantityByFilename.entries())
   );
 
-  for (const deepNestPart of deepNest.parts) {
-    const filename = deepNestPart.filename;
-    if (!filename) {
+	for (const deepNestPart of deepNest.parts) {
+	  // Sheets are not input parts and must not consume the points[] cursor.
+	  if (deepNestPart.sheet) {
 		continue;
-	}
+	  }
 
-	if (quantityByFilename.has(filename)) {
-		deepNestPart.quantity = quantityByFilename.get(filename) as number;
-	}
+	  const filename = deepNestPart.filename;
 
-	if (rotationsByFilename.has(filename)) {
-		deepNestPart.rotations = rotationsByFilename.get(filename) as number;
+	  if (filename) {
+		if (quantityByFilename.has(filename)) {
+		  deepNestPart.quantity = quantityByFilename.get(filename) as number;
+		}
+
+		if (rotationsByFilename.has(filename)) {
+		  deepNestPart.rotations = rotationsByFilename.get(filename) as number;
+		}
+
+		continue;
+	  }
+
+	  // Parts created from points[] have no filename.
+	  if (pointPartCursor < pointDefinedParts.length) {
+		const sourcePart = pointDefinedParts[pointPartCursor];
+
+		if (typeof sourcePart.quantity === "number") {
+		  deepNestPart.quantity = sourcePart.quantity;
+		}
+
+		if (typeof sourcePart.rotations === "number") {
+		  deepNestPart.rotations = sourcePart.rotations;
+		}
+
+		pointPartCursor++;
+	  }
 	}
-  }
 
   if (partsViewService) {
     partsViewService.update();
