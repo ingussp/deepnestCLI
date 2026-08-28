@@ -124,10 +124,12 @@ let sheetDialogService: SheetDialogService;
  * CLI job input types
  */
 interface CliPartInput {
+  id?: string;
   path?: string;
   points?: CliPointInput[];
   quantity?: number;
   rotations?: number;
+  _ip_nesting?: Record<string, unknown>;
 }
 
 interface CliPointInput {
@@ -654,13 +656,38 @@ async function loadCliParts(parts: CliPartInput[]): Promise<void> {
 	for (const part of parts) {
 	  if (typeof part.path === "string" && part.path.trim().length > 0) {
 		console.log("[cli-input][renderer] Importing file part:", part.path);
+		const deepNest = getDeepNest();
+		const beforeCount = deepNest.parts.length;
+
 		await importService.processFile(part.path);
+
+		const added = deepNest.parts.slice(beforeCount).filter((p) => !p.sheet);
+		added.forEach((p, idx) => {
+		  cliImportedPartRefs.push({
+			deepNestPartRef: p,
+			inputPart: part,
+			instanceIndex: idx,
+		  });
+		});
 		continue;
 	  }
 
 	  if (Array.isArray(part.points) && part.points.length >= 3) {
 		console.log("[cli-input][renderer] Importing polygon points part");
+		const deepNest = getDeepNest();
+		const beforeCount = deepNest.parts.length;
 		const ok = addCliPolygonPart(part.points);
+
+		if (ok) {
+		  const added = deepNest.parts.slice(beforeCount).filter((p) => !p.sheet);
+		  added.forEach((p, idx) => {
+			cliImportedPartRefs.push({
+			  deepNestPartRef: p,
+			  inputPart: part,
+			  instanceIndex: idx,
+			});
+		  });
+		}
 		if (!ok) {
 		  console.warn("[cli-input][renderer] Failed to add polygon points part", part);
 		}
@@ -690,72 +717,25 @@ function applyCliQuantities(parts: CliPartInput[]): void {
     return;
   }
 
-  const quantityByFilename = new Map<string, number>();
-  const rotationsByFilename = new Map<string, number>();
-  const pointDefinedParts = parts.filter(
-	  (p) => (!p.path || p.path.trim().length === 0) && Array.isArray(p.points) && p.points.length >= 3
-	);
+  for (const ref of cliImportedPartRefs) {
+    const deepNestPart = ref.deepNestPartRef as {
+      quantity?: number;
+      rotations?: number;
+      sheet?: boolean;
+    };
 
-	let pointPartCursor = 0;
+    if (deepNestPart.sheet) {
+      continue;
+    }
 
-	for (const part of parts) {
-	  // Parts defined by points[] do not have a file path or filename.
-	  if (typeof part.path !== "string" || part.path.trim().length === 0) {
-		continue;
-	  }
+    if (typeof ref.inputPart.quantity === "number") {
+      deepNestPart.quantity = ref.inputPart.quantity;
+    }
 
-	  const normalized = part.path.split("\\").join("/");
-	  const filename = normalized.substring(normalized.lastIndexOf("/") + 1);
-
-	  if (typeof part.quantity === "number") {
-		quantityByFilename.set(filename, part.quantity);
-	  }
-
-	  if (typeof part.rotations === "number") {
-		rotationsByFilename.set(filename, part.rotations);
-	  }
-	}
-
-  console.log(
-    "[cli-input][renderer] quantityByFilename:",
-    Array.from(quantityByFilename.entries())
-  );
-
-	for (const deepNestPart of deepNest.parts) {
-	  // Sheets are not input parts and must not consume the points[] cursor.
-	  if (deepNestPart.sheet) {
-		continue;
-	  }
-
-	  const filename = deepNestPart.filename;
-
-	  if (filename) {
-		if (quantityByFilename.has(filename)) {
-		  deepNestPart.quantity = quantityByFilename.get(filename) as number;
-		}
-
-		if (rotationsByFilename.has(filename)) {
-		  deepNestPart.rotations = rotationsByFilename.get(filename) as number;
-		}
-
-		continue;
-	  }
-
-	  // Parts created from points[] have no filename.
-	  if (pointPartCursor < pointDefinedParts.length) {
-		const sourcePart = pointDefinedParts[pointPartCursor];
-
-		if (typeof sourcePart.quantity === "number") {
-		  deepNestPart.quantity = sourcePart.quantity;
-		}
-
-		if (typeof sourcePart.rotations === "number") {
-		  deepNestPart.rotations = sourcePart.rotations;
-		}
-
-		pointPartCursor++;
-	  }
-	}
+    if (typeof ref.inputPart.rotations === "number") {
+      deepNestPart.rotations = ref.inputPart.rotations;
+    }
+  }
 
   if (partsViewService) {
     partsViewService.update();
@@ -792,6 +772,54 @@ interface CliNestResult {
   selected?: boolean;
 }
 
+function rotatePoint(point: CliPointInput, angleDeg: number): CliPointInput {
+  const rad = (angleDeg * Math.PI) / 180;
+  const cos = Math.cos(rad);
+  const sin = Math.sin(rad);
+
+  return {
+    x: point.x * cos - point.y * sin,
+    y: point.x * sin + point.y * cos,
+  };
+}
+
+function transformPoints(
+  points: CliPointInput[],
+  tx: number,
+  ty: number,
+  rotationDeg: number
+): CliPointInput[] {
+  return points.map((p) => {
+    const r = rotatePoint(p, rotationDeg);
+    return {
+      x: r.x + tx,
+      y: r.y + ty,
+    };
+  });
+}
+
+function getPartMeta(part: CliPartInput, fallbackSourceIndex: number) {
+  const ip = part._ip_nesting as Record<string, unknown> | undefined;
+
+  const sourcePartIndex =
+    typeof ip?.source_part_index === "number" ? (ip.source_part_index as number) : fallbackSourceIndex;
+
+  const partId =
+    typeof ip?.part_id === "string"
+      ? (ip.part_id as string)
+      : typeof part.id === "string"
+      ? part.id
+      : `part_${sourcePartIndex}`;
+
+  const previewObjectName =
+    typeof ip?.preview_object_name === "string" ? (ip.preview_object_name as string) : null;
+
+  const sourceType =
+    typeof ip?.source_type === "string" ? (ip.source_type as string) : null;
+
+  return { sourcePartIndex, partId, previewObjectName, sourceType };
+}
+
 function getSelectedOrBestNestResult(): CliNestResult | null {
   const deepNest = getDeepNest() as unknown as {
     nests?: CliNestResult[];
@@ -810,6 +838,14 @@ function getSelectedOrBestNestResult(): CliNestResult | null {
 }
 
 let lastResultSignature = "";
+
+let cliJobContext: CliJobInput | null = null;
+
+let cliImportedPartRefs: Array<{
+  deepNestPartRef: unknown;
+  inputPart: CliPartInput;
+  instanceIndex: number;
+}> = [];
 
 async function syncSelectedNestToResultJson(
   cliInputPath: string | null,
@@ -835,6 +871,7 @@ function createCliResultPayload(
   cliInputPath: string | null,
   result: CliNestResult
 ): Record<string, unknown> {
+
   const placements = (result.placements || []).map((sheetPlacement) => ({
     sheet: sheetPlacement.sheet,
     sheetId: sheetPlacement.sheetid || null,
@@ -850,7 +887,72 @@ function createCliResultPayload(
     })),
   }));
 
+	const enrichedPlacements = (result.placements || []).map((sheetPlacement) => {
+	  const perPartInstanceCounter = new Map<string, number>();
+
+	  const parts = (sheetPlacement.sheetplacements || []).map((placedPart) => {
+		const sourceCandidate = cliJobContext?.parts?.[placedPart.source] ?? null;
+		const sourcePart = sourceCandidate ?? cliJobContext?.parts?.[0] ?? null;
+
+		const meta = sourcePart
+		  ? getPartMeta(sourcePart, placedPart.source)
+		  : {
+			  sourcePartIndex: placedPart.source,
+			  partId: `part_${placedPart.source}`,
+			  previewObjectName: null,
+			  sourceType: null,
+			};
+
+		const currentInstance = perPartInstanceCounter.get(meta.partId) ?? 0;
+		perPartInstanceCounter.set(meta.partId, currentInstance + 1);
+
+		const stableId = `${meta.partId}_instance_${currentInstance}`;
+		const originalPoints = Array.isArray(sourcePart?.points) ? sourcePart.points : [];
+		const transformedPoints =
+		  originalPoints.length > 0
+			? transformPoints(originalPoints, placedPart.x, placedPart.y, placedPart.rotation)
+			: [];
+
+		return {
+		  id: stableId,
+		  placed: true,
+		  x: placedPart.x,
+		  y: placedPart.y,
+		  rotation: placedPart.rotation,
+		  sheetId: sheetPlacement.sheetid || null,
+		  sheetIndex: sheetPlacement.sheet,
+
+		  sourcePart: {
+			source_part_index: meta.sourcePartIndex,
+			part_id: meta.partId,
+			preview_object_name: meta.previewObjectName,
+			source_type: meta.sourceType,
+			instance_index: currentInstance,
+			_ip_nesting: sourcePart?._ip_nesting ?? null,
+		  },
+
+		  placement: {
+			id: placedPart.id,
+			source: placedPart.source,
+			filename: placedPart.filename || null,
+			mergedLength: placedPart.mergedLength ?? 0,
+			mergedSegments: placedPart.mergedSegments ?? [],
+		  },
+
+		  originalPoints,
+		  transformedPoints,
+		};
+	  });
+
+	  return {
+		sheet: sheetPlacement.sheet,
+		sheetId: sheetPlacement.sheetid || null,
+		parts,
+	  };
+	});
+
   return {
+    // Existing output metadata
     success: true,
     generatedAt: new Date().toISOString(),
     inputPath: cliInputPath,
@@ -860,7 +962,24 @@ function createCliResultPayload(
     mergedLength: result.mergedLength ?? 0,
     utilisation: result.utilisation ?? null,
     index: result.index ?? null,
+
+    // Keep legacy/simple placements
     placements,
+
+    // New rich placement payload
+    enrichedPlacements,
+
+    // Echo back full input context for downstream integrations
+    inputContext: cliJobContext ?? null,
+
+    // Convenience mirror for quick access
+	schema_version: (cliJobContext as Record<string, unknown> | null)?.schema_version ?? null,
+	job_id: (cliJobContext as Record<string, unknown> | null)?.job_id ?? null,
+	created_at: (cliJobContext as Record<string, unknown> | null)?.created_at ?? null,
+	_ip_nesting: (cliJobContext as Record<string, unknown> | null)?._ip_nesting ?? null,
+	settings: cliJobContext?.settings ?? null,
+	sheets: cliJobContext?.sheets ?? null,
+	parts: cliJobContext?.parts ?? null,
   };
 }
 
@@ -920,6 +1039,9 @@ async function bootstrapCliJob(): Promise<void> {
 
   const job = cliInput.data;
   console.log("[cli-input][renderer] Parsed CLI job:", job);
+  
+  cliJobContext = job;
+  cliImportedPartRefs = [];
 
   if (job.settings) {
     console.log("[cli-input][renderer] Applying settings");
