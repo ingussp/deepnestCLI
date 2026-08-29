@@ -142,6 +142,7 @@ interface CliRectSheetInput {
   width: number;
   height: number;
   quantity?: number;
+  _ip_nesting?: Record<string, unknown>;
 }
 
 interface CliPolygonSheetInput {
@@ -149,6 +150,7 @@ interface CliPolygonSheetInput {
   outer: CliPointInput[];
   holes?: CliPointInput[][];
   quantity?: number;
+  _ip_nesting?: Record<string, unknown>;
 }
 
 type CliSheetInput = CliRectSheetInput | CliPolygonSheetInput;
@@ -772,30 +774,128 @@ interface CliNestResult {
   selected?: boolean;
 }
 
-function rotatePoint(point: CliPointInput, angleDeg: number): CliPointInput {
-  const rad = (angleDeg * Math.PI) / 180;
-  const cos = Math.cos(rad);
-  const sin = Math.sin(rad);
+function normalizeIpNesting(
+  ip: Record<string, unknown> | undefined
+): Record<string, unknown> | null {
+  if (!ip) {
+    return null;
+  }
+
+  const normalized: Record<string, unknown> = { ...ip };
+  const grain = ip.grain;
+
+  if (isObject(grain)) {
+    const normalizedGrain: Record<string, unknown> = { ...grain };
+
+    const customAngleEnabled = grain.custom_angle_enabled === true;
+    const customAngle = grain.custom_angle_deg;
+
+    if (
+      customAngleEnabled &&
+      (typeof customAngle !== "number" || !Number.isFinite(customAngle))
+    ) {
+      normalizedGrain.custom_angle_enabled = false;
+      normalizedGrain.custom_angle_deg = null;
+    }
+
+    if (
+      normalizedGrain.custom_angle_enabled === true &&
+      typeof normalizedGrain.custom_angle_deg !== "number"
+    ) {
+      normalizedGrain.custom_angle_enabled = false;
+      normalizedGrain.custom_angle_deg = null;
+    }
+
+    normalized.grain = normalizedGrain;
+  }
+
+  return normalized;
+}
+
+function getPointsBounds(
+  points: CliPointInput[]
+): { minX: number; minY: number; maxX: number; maxY: number } | null {
+  if (!Array.isArray(points) || points.length === 0) {
+    return null;
+  }
+
+  const xs = points.map((point) => point.x);
+  const ys = points.map((point) => point.y);
 
   return {
-    x: point.x * cos - point.y * sin,
-    y: point.x * sin + point.y * cos,
+    minX: Math.min(...xs),
+    minY: Math.min(...ys),
+    maxX: Math.max(...xs),
+    maxY: Math.max(...ys),
   };
 }
 
-function transformPoints(
-  points: CliPointInput[],
-  tx: number,
-  ty: number,
-  rotationDeg: number
-): CliPointInput[] {
-  return points.map((p) => {
-    const r = rotatePoint(p, rotationDeg);
-    return {
-      x: r.x + tx,
-      y: r.y + ty,
-    };
-  });
+function createGeometryTransform(
+  ip: Record<string, unknown> | null,
+  points: CliPointInput[]
+): Record<string, unknown> {
+  const shapeBbox = isObject(ip?.shape_bbox)
+    ? ip.shape_bbox
+    : null;
+
+  const pointsBounds = getPointsBounds(points);
+
+  const shapeMinX =
+    typeof shapeBbox?.min_x === "number" ? shapeBbox.min_x : null;
+
+  const shapeMinY =
+    typeof shapeBbox?.min_y === "number" ? shapeBbox.min_y : null;
+
+  const shapeMinZ =
+    typeof shapeBbox?.min_z === "number" ? shapeBbox.min_z : 0;
+
+  const offsetX =
+    shapeMinX !== null && pointsBounds
+      ? shapeMinX - pointsBounds.minX
+      : null;
+
+  const offsetY =
+    shapeMinY !== null && pointsBounds
+      ? shapeMinY - pointsBounds.minY
+      : null;
+
+  const sourceShape = typeof ip?.preview_object_name === "string"
+    ? "preview_object"
+    : "input_points";
+
+  return {
+    source_shape_coordinate_system: "freecad_shape_coordinates",
+    nesting_coordinate_system: "nesting_local",
+
+    nesting_to_source_shape_offset:
+      offsetX !== null && offsetY !== null
+        ? {
+            x: offsetX,
+            y: offsetY,
+            z: shapeMinZ,
+          }
+        : null,
+
+    offset_calculation:
+      offsetX !== null && offsetY !== null
+        ? "source_shape_bbox_min_xy_minus_nesting_points_min_xy"
+        : "unavailable",
+
+    source_shape: sourceShape,
+    source_shape_placement: "apply",
+    nesting_translation: "apply_after_source_mapping",
+
+    nesting_rotation: {
+      axis: "Z",
+      direction: "ccw",
+      origin: "local_coordinate_origin",
+    },
+
+    shape_translation_removed: false,
+    shape_rotation_removed: false,
+    source_shape_placement_must_be_preserved: true,
+    result_import_requires_source_placement: true,
+  };
 }
 
 function getPartMeta(part: CliPartInput, fallbackSourceIndex: number) {
@@ -872,115 +972,259 @@ function createCliResultPayload(
   result: CliNestResult
 ): Record<string, unknown> {
 
-  const placements = (result.placements || []).map((sheetPlacement) => ({
-    sheet: sheetPlacement.sheet,
-    sheetId: sheetPlacement.sheetid || null,
-    parts: (sheetPlacement.sheetplacements || []).map((part) => ({
-      id: part.id,
-      source: part.source,
-      filename: part.filename || null,
-      x: part.x,
-      y: part.y,
-      rotation: part.rotation,
-      mergedLength: part.mergedLength ?? 0,
-      mergedSegments: part.mergedSegments ?? [],
-    })),
-  }));
+	  const inputTop = (cliJobContext as Record<string, unknown> | null) ?? null;
 
-	const enrichedPlacements = (result.placements || []).map((sheetPlacement) => {
-	  const perPartInstanceCounter = new Map<string, number>();
+  const inputParts = cliJobContext?.parts ?? [];
+  const inputSheets = cliJobContext?.sheets ?? [];
 
-	  const parts = (sheetPlacement.sheetplacements || []).map((placedPart) => {
-		const sourceCandidate = cliJobContext?.parts?.[placedPart.source] ?? null;
-		const sourcePart = sourceCandidate ?? cliJobContext?.parts?.[0] ?? null;
+  // Build sourceParts once (no duplication per instance)
+  const sourceParts = inputParts.map((part, idx) => {
+    const meta = getPartMeta(part, idx);
 
-		const meta = sourcePart
-		  ? getPartMeta(sourcePart, placedPart.source)
-		  : {
-			  sourcePartIndex: placedPart.source,
-			  partId: `part_${placedPart.source}`,
-			  previewObjectName: null,
-			  sourceType: null,
-			};
+    const ip = normalizeIpNesting(
+      (part._ip_nesting as Record<string, unknown> | undefined) ??
+        undefined
+    );
 
-		const currentInstance = perPartInstanceCounter.get(meta.partId) ?? 0;
-		perPartInstanceCounter.set(meta.partId, currentInstance + 1);
+    const points = Array.isArray(part.points)
+      ? part.points.map((point) => ({
+          x: point.x,
+          y: point.y,
+        }))
+      : [];
 
-		const stableId = `${meta.partId}_instance_${currentInstance}`;
-		const originalPoints = Array.isArray(sourcePart?.points) ? sourcePart.points : [];
-		const transformedPoints =
-		  originalPoints.length > 0
-			? transformPoints(originalPoints, placedPart.x, placedPart.y, placedPart.rotation)
-			: [];
+    return {
+      source_part_index: meta.sourcePartIndex,
+      part_id: meta.partId,
 
-		return {
-		  id: stableId,
-		  placed: true,
-		  x: placedPart.x,
-		  y: placedPart.y,
-		  rotation: placedPart.rotation,
-		  sheetId: sheetPlacement.sheetid || null,
-		  sheetIndex: sheetPlacement.sheet,
+      label: typeof ip?.label === "string" ? ip.label : null,
+      preview_document:
+        typeof ip?.preview_document === "string"
+          ? ip.preview_document
+          : null,
+      preview_object_name: meta.previewObjectName,
+      source_type: meta.sourceType,
 
-		  sourcePart: {
-			source_part_index: meta.sourcePartIndex,
-			part_id: meta.partId,
-			preview_object_name: meta.previewObjectName,
-			source_type: meta.sourceType,
-			instance_index: currentInstance,
-			_ip_nesting: sourcePart?._ip_nesting ?? null,
-		  },
+      quantity:
+        typeof part.quantity === "number"
+          ? part.quantity
+          : 1,
 
-		  placement: {
-			id: placedPart.id,
-			source: placedPart.source,
-			filename: placedPart.filename || null,
-			mergedLength: placedPart.mergedLength ?? 0,
-			mergedSegments: placedPart.mergedSegments ?? [],
-		  },
+      rotations:
+        typeof part.rotations === "number"
+          ? part.rotations
+          : 1,
 
-		  originalPoints,
-		  transformedPoints,
-		};
+      shape_bbox: isObject(ip?.shape_bbox)
+        ? ip.shape_bbox
+        : null,
+
+      geometry_transform: createGeometryTransform(ip, points),
+
+      points,
+    };
+  });
+
+	  const sheets = inputSheets.flatMap((sheet, idx) => {
+		const anySheet = sheet as unknown as Record<string, unknown>;
+		const ip =
+		  (anySheet._ip_nesting as Record<string, unknown> | undefined) ??
+		  undefined;
+
+		const quantity =
+		  typeof anySheet.quantity === "number" && anySheet.quantity > 0
+			? Math.floor(anySheet.quantity)
+			: 1;
+
+		const sourceSheetIndex =
+		  typeof ip?.source_sheet_index === "number"
+			? ip.source_sheet_index
+			: idx;
+
+		return Array.from({ length: quantity }, (_, instanceIndex) => ({
+		  source_sheet_index: sourceSheetIndex,
+		  sheet_instance_index: instanceIndex,
+		  sheetId: `${String(sourceSheetIndex).padStart(4, "0")}-${String(
+			instanceIndex
+		  ).padStart(4, "0")}`,
+		  type: anySheet.type ?? "rect",
+		  width: typeof anySheet.width === "number" ? anySheet.width : null,
+		  height: typeof anySheet.height === "number" ? anySheet.height : null,
+		  outer: Array.isArray(anySheet.outer) ? anySheet.outer : [],
+		  holes: Array.isArray(anySheet.holes) ? anySheet.holes : [],
+		  quantity: 1,
+		}));
 	  });
 
-	  return {
-		sheet: sheetPlacement.sheet,
-		sheetId: sheetPlacement.sheetid || null,
-		parts,
-	  };
-	});
+	   /*
+	   * DeepNest placement.source is an index in deepNest.parts.
+	   * It is not necessarily the same as input source_part_index because
+	   * sheets and imported parts share the same DeepNest parts array.
+	   */
+	  const sourcePartByDeepNestIndex = new Map<number, CliPartInput>();
 
-  return {
-    // Existing output metadata
-    success: true,
-    generatedAt: new Date().toISOString(),
-    inputPath: cliInputPath,
-    fitness: result.fitness ?? null,
-    area: result.area ?? null,
-    totalarea: result.totalarea ?? null,
-    mergedLength: result.mergedLength ?? 0,
-    utilisation: result.utilisation ?? null,
-    index: result.index ?? null,
+	  for (const ref of cliImportedPartRefs) {
+		const deepNestPartIndex = getDeepNest().parts.indexOf(
+		  ref.deepNestPartRef as DeepNestInstance["parts"][number]
+		);
 
-    // Keep legacy/simple placements
-    placements,
+		if (deepNestPartIndex >= 0) {
+		  sourcePartByDeepNestIndex.set(deepNestPartIndex, ref.inputPart);
+		}
+	  }
 
-    // New rich placement payload
-    enrichedPlacements,
+	  /*
+	   * Fallback lookup by the original input part index.
+	   * This is useful when a result was generated without a runtime reference.
+	   */
+	  const sourcePartByInputIndex = new Map<number, CliPartInput>();
 
-    // Echo back full input context for downstream integrations
-    inputContext: cliJobContext ?? null,
+	  inputParts.forEach((part, inputIndex) => {
+		sourcePartByInputIndex.set(inputIndex, part);
+	  });
 
-    // Convenience mirror for quick access
-	schema_version: (cliJobContext as Record<string, unknown> | null)?.schema_version ?? null,
-	job_id: (cliJobContext as Record<string, unknown> | null)?.job_id ?? null,
-	created_at: (cliJobContext as Record<string, unknown> | null)?.created_at ?? null,
-	_ip_nesting: (cliJobContext as Record<string, unknown> | null)?._ip_nesting ?? null,
-	settings: cliJobContext?.settings ?? null,
-	sheets: cliJobContext?.sheets ?? null,
-	parts: cliJobContext?.parts ?? null,
-  };
+  // Flatten placements to compact instance records
+  const partInstanceCounter = new Map<string, number>();
+
+  const flatPlacements = (result.placements || []).flatMap((sheetPlacement) => {
+    const sheetIndex = sheetPlacement.sheet;
+    const sheetId = sheetPlacement.sheetid || String(sheetIndex).padStart(4, "0") + "-0000";
+
+    return (sheetPlacement.sheetplacements || []).map((placedPart) => {
+      
+	   /*
+       * Resolve the original input part using the actual DeepNest
+       * parts-array index stored in placement.source.
+       */
+      const sourceInputPart =
+        sourcePartByDeepNestIndex.get(placedPart.source) ??
+        sourcePartByInputIndex.get(placedPart.source) ??
+        null;
+
+      const sourceInputIndex = sourceInputPart
+        ? inputParts.indexOf(sourceInputPart)
+        : placedPart.source;
+
+        const meta = sourceInputPart
+        ? getPartMeta(sourceInputPart, sourceInputIndex)
+        : {
+            sourcePartIndex: placedPart.source,
+            partId: `part_${placedPart.source}`,
+            previewObjectName: null,
+            sourceType: null,
+          };
+
+      const partId = meta.partId;
+	  
+      const key = `${partId}`;
+      const instanceIndex = partInstanceCounter.get(key) ?? 0;
+      partInstanceCounter.set(key, instanceIndex + 1);
+
+      return {
+        id: `${partId}_instance_${instanceIndex}`,
+        source_part_index: meta.sourcePartIndex,
+        instance_index: instanceIndex,
+        part_id: partId,
+        sheetIndex,
+        sheetId,
+        placed: true,
+        x: placedPart.x,
+        y: placedPart.y,
+        rotation: placedPart.rotation,
+        flipped: false,
+
+        coordinate_system: "sheet_xy",
+        placement_origin: "local_coordinate_origin",
+        rotation_origin: "local_coordinate_origin",
+        rotation_direction: "ccw",
+		placement_coordinates_are: "translation_of_nesting_local_points",
+        rotation_applied_around: "local_coordinate_origin",
+      };
+    });
+  });
+
+		const placedCount = flatPlacements.length;
+	  const expectedCount = sourceParts.reduce(
+		(sum, part) => sum + (part.quantity ?? 0),
+		0
+	  );
+	  const unplacedCount = Math.max(0, expectedCount - placedCount);
+	  
+	  const status =
+		expectedCount === 0
+		  ? "failed"
+		  : unplacedCount === 0
+			? "success"
+			: placedCount > 0
+			  ? "partial"
+			  : "failed";
+
+	  const placedBySourceIndex = new Map<number, number>();
+
+	  for (const placement of flatPlacements) {
+		const currentCount =
+		  placedBySourceIndex.get(placement.source_part_index) ?? 0;
+
+		placedBySourceIndex.set(
+		  placement.source_part_index,
+		  currentCount + 1
+		);
+	  }
+
+	  const unplaced = sourceParts.flatMap((sourcePart) => {
+		const placedForPart =
+		  placedBySourceIndex.get(sourcePart.source_part_index) ?? 0;
+
+		const missingCount = Math.max(
+		  0,
+		  sourcePart.quantity - placedForPart
+		);
+
+		return Array.from({ length: missingCount }, (_, instanceIndex) => {
+		  const actualInstanceIndex = placedForPart + instanceIndex;
+
+		  return {
+			id: `${sourcePart.part_id}_instance_${actualInstanceIndex}`,
+			source_part_index: sourcePart.source_part_index,
+			part_id: sourcePart.part_id,
+			instance_index: actualInstanceIndex,
+			placed: false,
+			reason: "No available space",
+			coordinate_system: "sheet_xy",
+			placement_origin: "local_coordinate_origin",
+			rotation_origin: "local_coordinate_origin",
+			rotation_direction: "ccw",
+			placement_coordinates_are: "translation_of_nesting_local_points",
+			rotation_applied_around: "local_coordinate_origin",
+		  };
+		});
+	  });
+
+    return {
+		schema_version: (inputTop?.schema_version as number | undefined) ?? 1,
+		job_id: (inputTop?.job_id as string | undefined) ?? null,
+		success: status === "success",
+		status,
+		generatedAt: new Date().toISOString(),
+		inputPath: cliInputPath,
+
+		summary: {
+		  fitness: result.fitness ?? null,
+		  area: result.area ?? null,
+		  totalarea: result.totalarea ?? null,
+		  mergedLength: result.mergedLength ?? 0,
+		  utilisation: result.utilisation ?? null,
+		  index: result.index ?? null,
+		  sheets_used: new Set(flatPlacements.map((p) => p.sheetId)).size,
+		  placed_count: placedCount,
+		  unplaced_count: unplacedCount,
+		},
+
+		sourceParts,
+		sheets,
+		placements: flatPlacements,
+		unplaced,
+	};
 }
 
 async function writeCliResultJson(
